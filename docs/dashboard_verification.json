@@ -1,0 +1,184 @@
+{
+  "database": "olist",
+  "data": "GERÇEK Olist verisi",
+  "etl_run_id": "1feee717-ec9e-46d8-9995-8b4e0691af1f",
+  "etl_finished_at": "2026-10-24 17:47:39.796184+00:00",
+  "coverage": [
+    "2016-09-15",
+    "2018-08-29"
+  ],
+  "verified_at_utc": "2026-10-25T14:17:31+00:00",
+  "all_match": true,
+  "samples": [
+    {
+      "sample": "default_coverage",
+      "page": "page_overview.py",
+      "filters": {},
+      "app": {
+        "Ürün satış tutarı": "13.221.498,11 BRL",
+        "Sipariş sayısı": "96.478",
+        "Müşteri sayısı": "93.358",
+        "Ortalama sepet tutarı": "137,04 BRL"
+      },
+      "direct_sql": {
+        "Ürün satış tutarı": "13.221.498,11 BRL",
+        "Sipariş sayısı": "96.478",
+        "Müşteri sayısı": "93.358",
+        "Ortalama sepet tutarı": "137,04 BRL"
+      },
+      "match": true
+    },
+    {
+      "sample": "category_health_beauty",
+      "page": "page_overview.py",
+      "filters": {
+        "w_categories": [
+          "health_beauty"
+        ]
+      },
+      "app": {
+        "Ürün satış tutarı": "1.233.131,72 BRL",
+        "Sipariş sayısı": "8.647",
+        "Müşteri sayısı": "8.498",
+        "Ortalama sepet tutarı": "142,61 BRL"
+      },
+      "direct_sql": {
+        "Ürün satış tutarı": "1.233.131,72 BRL",
+        "Sipariş sayısı": "8.647",
+        "Müşteri sayısı": "8.498",
+        "Ortalama sepet tutarı": "142,61 BRL"
+      },
+      "match": true
+    },
+    {
+      "sample": "states_SP_RJ_2018H1",
+      "page": "page_overview.py",
+      "filters": {
+        "w_states": [
+          "SP",
+          "RJ"
+        ],
+        "w_dates": [
+          "2018-01-01",
+          "2018-06-30"
+        ]
+      },
+      "app": {
+        "Ürün satış tutarı": "2.894.077,40 BRL",
+        "Sipariş sayısı": "22.379",
+        "Müşteri sayısı": "21.869",
+        "Ortalama sepet tutarı": "129,32 BRL"
+      },
+      "direct_sql": {
+        "Ürün satış tutarı": "2.894.077,40 BRL",
+        "Sipariş sayısı": "22.379",
+        "Müşteri sayısı": "21.869",
+        "Ortalama sepet tutarı": "129,32 BRL"
+      },
+      "match": true
+    },
+    {
+      "sample": "bed_bath_table_MG_2017",
+      "page": "page_overview.py",
+      "filters": {
+        "w_categories": [
+          "bed_bath_table"
+        ],
+        "w_states": [
+          "MG"
+        ],
+        "w_dates": [
+          "2017-01-01",
+          "2017-12-31"
+        ]
+      },
+      "app": {
+        "Ürün satış tutarı": "64.248,01 BRL",
+        "Sipariş sayısı": "565",
+        "Müşteri sayısı": "546",
+        "Ortalama sepet tutarı": "113,71 BRL"
+      },
+      "direct_sql": {
+        "Ürün satış tutarı": "64.248,01 BRL",
+        "Sipariş sayısı": "565",
+        "Müşteri sayısı": "546",
+        "Ortalama sepet tutarı": "113,71 BRL"
+      },
+      "match": true
+    },
+    {
+      "sample": "two_categories_2018_03",
+      "page": "page_overview.py",
+      "filters": {
+        "w_categories": [
+          "health_beauty",
+          "watches_gifts"
+        ],
+        "w_dates": [
+          "2018-03-01",
+          "2018-03-31"
+        ]
+      },
+      "app": {
+        "Ürün satış tutarı": "180.149,75 BRL",
+        "Sipariş sayısı": "1.012",
+        "Müşteri sayısı": "1.007",
+        "Ortalama sepet tutarı": "178,01 BRL"
+      },
+      "direct_sql": {
+        "Ürün satış tutarı": "180.149,75 BRL",
+        "Sipariş sayısı": "1.012",
+        "Müşteri sayısı": "1.007",
+        "Ortalama sepet tutarı": "178,01 BRL"
+      },
+      "match": true
+    },
+    {
+      "sample": "delivery_state_BA_2017",
+      "page": "page_delivery.py",
+      "filters": {
+        "w_states": [
+          "BA"
+        ],
+        "w_dates": [
+          "2017-01-01",
+          "2017-12-31"
+        ]
+      },
+      "app": {
+        "Ortalama teslimat süresi": "19,54 gün",
+        "Geç teslimat oranı": "%10,02",
+        "Ölçülen sipariş": "1.527",
+        "Teslim zamanı boş": "0"
+      },
+      "direct_sql": {
+        "Ortalama teslimat süresi": "19,54 gün",
+        "Geç teslimat oranı": "%10,02",
+        "Ölçülen sipariş": "1.527",
+        "Teslim zamanı boş": "0"
+      },
+      "match": true
+    },
+    {
+      "sample": "customers_2017",
+      "page": "page_customers.py",
+      "filters": {
+        "w_dates": [
+          "2017-01-01",
+          "2017-12-31"
+        ]
+      },
+      "app": {
+        "Müşteri sayısı": "42.136",
+        "Tekrar eden müşteri": "1.170",
+        "Tekrar satın alma oranı": "%2,78"
+      },
+      "direct_sql": {
+        "Müşteri sayısı": "42.136",
+        "Tekrar eden müşteri": "1.170",
+        "Tekrar satın alma oranı": "%2,78"
+      },
+      "match": true
+    }
+  ]
+}

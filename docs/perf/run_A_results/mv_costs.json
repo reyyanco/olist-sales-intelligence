@@ -1,0 +1,46 @@
+{
+  "refresh_plain": {
+    "timings_ms": [
+      560.197,
+      556.066,
+      584.695,
+      559.814,
+      540.688
+    ],
+    "row_count": 0,
+    "result_md5": "",
+    "warmup_runs": 1,
+    "median_ms": 559.814,
+    "min_ms": 540.688,
+    "max_ms": 584.695
+  },
+  "refresh_concurrently": {
+    "timings_ms": [
+      549.224,
+      649.395,
+      531.02,
+      547.297,
+      603.894
+    ],
+    "row_count": 0,
+    "result_md5": "",
+    "warmup_runs": 1,
+    "median_ms": 549.224,
+    "min_ms": 531.02,
+    "max_ms": 649.395
+  },
+  "storage_bytes": {
+    "heap": 8192,
+    "total_with_indexes": 40960,
+    "unique_index": 16384
+  },
+  "rows": 74,
+  "freshness_demo": {
+    "change": "Bir teslim edilmiş kalemin fiyatı +1.00 (işlem içinde, sonra ROLLBACK)",
+    "view_total_before": "13221498.11",
+    "view_total_after_change": "13221499.11",
+    "mv_total_without_refresh": "13221498.11",
+    "mv_reflects_change": false
+  },
+  "freshness_rule": "MV, son REFRESH anındaki veriyi gösterir. Projede ETL işleminin sonunda ve sp_refresh_reports() ile yenilenir; son yenileme zamanı meta.etl_runs / meta.report_refresh_runs içinde."
+}

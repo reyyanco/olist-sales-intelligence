@@ -1,0 +1,12 @@
+{
+  "values": {
+    "customer_unique_id": "8d50f5eadf50201ccdcedfb9e2ac8455",
+    "seller_id": "6560211a19b47992c3666cc44a7e94c0",
+    "as_of": "2018-08-30"
+  },
+  "selection_sql": {
+    "customer_unique_id": "SELECT customer_unique_id FROM dw.dim_customer GROUP BY customer_unique_id ORDER BY count(*) DESC, customer_unique_id LIMIT 1",
+    "seller_id": "SELECT seller_id FROM dw.fact_sales GROUP BY seller_id ORDER BY count(*) DESC, seller_id LIMIT 1",
+    "as_of": "SELECT observation_date FROM reporting.v_rfm_observation"
+  }
+}

@@ -1,0 +1,392 @@
+[
+  {
+    "name": "desktop_kategori",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Kategori Analizi",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Kategori sayısı | 74",
+      "En çok satan kategori | health_beauty",
+      "Satışın %80'ine ulaşılan sıra | 18"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 20,
+        "y_sum": NaN
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: tüm kategoriler (bu sayfada filtre yok)",
+    "file": "desktop_kategori.png"
+  },
+  {
+    "name": "desktop_musteri",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Müşteri Analizi",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Müşteri sayısı | 93.358",
+      "Tekrar eden müşteri | 2.801",
+      "Tekrar satın alma oranı | %3,00"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 8,
+        "y_sum": NaN
+      }
+    ],
+    "scope": "Filtre kapsamı — Tekrar satın alma: 15.09.2016 – 29.08.2018 (satın alma günü) · RFM gözlem tarihi: 30.08.2018 (bitiş günü + 1; o güne kadarki tüm satın almalar) · Eyalet/kategori: bu sayfada uygulanmaz (müşteri düzeyi)",
+    "file": "desktop_musteri.png"
+  },
+  {
+    "name": "desktop_teslimat",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Teslimat Performansı",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ortalama teslimat süresi | 12,56 gün",
+      "Geç teslimat oranı | %6,77",
+      "Ölçülen sipariş | 96.470",
+      "Teslim zamanı boş | 8"
+    ],
+    "plotly_charts": 2,
+    "chart_first_trace": [
+      {
+        "points": 5,
+        "y_sum": NaN
+      },
+      {
+        "points": 21,
+        "y_sum": 269.8
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: uygulanmaz (sipariş düzeyi) · Kapsam: teslim edilmiş siparişler",
+    "file": "desktop_teslimat.png"
+  },
+  {
+    "name": "narrow_kategori",
+    "scroll_width": 390,
+    "client_width": 390,
+    "horizontal_overflow": false,
+    "title": "Kategori Analizi",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Kategori sayısı | 74",
+      "En çok satan kategori | health_beauty",
+      "Satışın %80'ine ulaşılan sıra | 18"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 20,
+        "y_sum": NaN
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: tüm kategoriler (bu sayfada filtre yok)",
+    "file": "narrow_kategori.png"
+  },
+  {
+    "name": "narrow_musteri",
+    "scroll_width": 390,
+    "client_width": 390,
+    "horizontal_overflow": false,
+    "title": "Müşteri Analizi",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Müşteri sayısı | 93.358",
+      "Tekrar eden müşteri | 2.801",
+      "Tekrar satın alma oranı | %3,00"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 8,
+        "y_sum": NaN
+      }
+    ],
+    "scope": "Filtre kapsamı — Tekrar satın alma: 15.09.2016 – 29.08.2018 (satın alma günü) · RFM gözlem tarihi: 30.08.2018 (bitiş günü + 1; o güne kadarki tüm satın almalar) · Eyalet/kategori: bu sayfada uygulanmaz (müşteri düzeyi)",
+    "file": "narrow_musteri.png"
+  },
+  {
+    "name": "narrow_teslimat",
+    "scroll_width": 390,
+    "client_width": 390,
+    "horizontal_overflow": false,
+    "title": "Teslimat Performansı",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ortalama teslimat süresi | 12,56 gün",
+      "Geç teslimat oranı | %6,77",
+      "Ölçülen sipariş | 96.470",
+      "Teslim zamanı boş | 8"
+    ],
+    "plotly_charts": 2,
+    "chart_first_trace": [
+      {
+        "points": 5,
+        "y_sum": NaN
+      },
+      {
+        "points": 21,
+        "y_sum": 269.8
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: uygulanmaz (sipariş düzeyi) · Kapsam: teslim edilmiş siparişler",
+    "file": "narrow_teslimat.png"
+  },
+  {
+    "name": "filter_delivery_state_BA",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Teslimat Performansı",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ortalama teslimat süresi | 19,34 gün",
+      "Geç teslimat oranı | %12,16",
+      "Ölçülen sipariş | 3.256",
+      "Teslim zamanı boş | 0"
+    ],
+    "plotly_charts": 2,
+    "chart_first_trace": [
+      {
+        "points": 1,
+        "y_sum": NaN
+      },
+      {
+        "points": 19,
+        "y_sum": 370.71
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: BA · Kategori: uygulanmaz (sipariş düzeyi) · Kapsam: teslim edilmiş siparişler",
+    "file": "filter_delivery_state_BA.png"
+  },
+  {
+    "name": "empty_result_overview",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Genel Bakış",
+    "errors": [],
+    "infos": [
+      "Seçilen filtrelerle sonuç bulunamadı. Tarih aralığını genişletin veya filtreleri azaltın."
+    ],
+    "metrics": [],
+    "plotly_charts": 0,
+    "chart_first_trace": [],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: AC · Kategori: arts_and_craftmanship · Kapsam: teslim edilmiş siparişler",
+    "file": "empty_result_overview.png"
+  },
+  {
+    "name": "desktop_genel-bakis",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Genel Bakış",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ürün satış tutarı | 13.221.498,11 BRL",
+      "Sipariş sayısı | 96.478",
+      "Müşteri sayısı | 93.358",
+      "Ortalama sepet tutarı | 137,04 BRL"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 24,
+        "y_sum": 13221498.11
+      }
+    ],
+    "x_tick_labels": [
+      {
+        "count": 24,
+        "angle": 90,
+        "overlapping_pairs": 0,
+        "min_gap_px": 20.4
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: tümü · Kapsam: teslim edilmiş siparişler",
+    "file": "desktop_genel-bakis.png",
+    "captured_at_utc": "2026-10-25T16:15:08Z"
+  },
+  {
+    "name": "narrow_genel-bakis",
+    "scroll_width": 390,
+    "client_width": 390,
+    "horizontal_overflow": false,
+    "title": "Genel Bakış",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ürün satış tutarı | 13.221.498,11 BRL",
+      "Sipariş sayısı | 96.478",
+      "Müşteri sayısı | 93.358",
+      "Ortalama sepet tutarı | 137,04 BRL"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 24,
+        "y_sum": 13221498.11
+      }
+    ],
+    "x_tick_labels": [
+      {
+        "count": 12,
+        "angle": 90,
+        "overlapping_pairs": 0,
+        "min_gap_px": 4.9
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: tümü · Kapsam: teslim edilmiş siparişler",
+    "file": "narrow_genel-bakis.png",
+    "captured_at_utc": "2026-10-25T16:15:12Z"
+  },
+  {
+    "name": "filter_overview_state_RJ",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Genel Bakış",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ürün satış tutarı | 1.759.651,13 BRL",
+      "Sipariş sayısı | 12.350",
+      "Müşteri sayısı | 11.917",
+      "Ortalama sepet tutarı | 142,48 BRL"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 24,
+        "y_sum": 1759651.13
+      }
+    ],
+    "x_tick_labels": [
+      {
+        "count": 24,
+        "angle": 90,
+        "overlapping_pairs": 0,
+        "min_gap_px": 20.8
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: RJ · Kategori: tümü · Kapsam: teslim edilmiş siparişler",
+    "file": "filter_overview_state_RJ.png",
+    "captured_at_utc": "2026-10-25T16:15:19Z"
+  },
+  {
+    "name": "filter_overview_category_health_beauty",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Genel Bakış",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ürün satış tutarı | 1.233.131,72 BRL",
+      "Sipariş sayısı | 8.647",
+      "Müşteri sayısı | 8.498",
+      "Ortalama sepet tutarı | 142,61 BRL"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 24,
+        "y_sum": 1233131.72
+      }
+    ],
+    "x_tick_labels": [
+      {
+        "count": 24,
+        "angle": 90,
+        "overlapping_pairs": 0,
+        "min_gap_px": 20.8
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: health_beauty · Kapsam: teslim edilmiş siparişler",
+    "file": "filter_overview_category_health_beauty.png",
+    "captured_at_utc": "2026-10-25T16:15:25Z"
+  },
+  {
+    "name": "filter_overview_dates_2018Q1",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Genel Bakış",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ürün satış tutarı | 2.704.438,38 BRL",
+      "Sipariş sayısı | 20.627",
+      "Müşteri sayısı | 20.211",
+      "Ortalama sepet tutarı | 131,11 BRL"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 3,
+        "y_sum": 2704438.38
+      }
+    ],
+    "x_tick_labels": [
+      {
+        "count": 3,
+        "angle": 0,
+        "overlapping_pairs": 0,
+        "min_gap_px": 252.2
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 01.01.2018 – 31.03.2018 (satın alma günü) · Eyalet: tümü · Kategori: tümü · Kapsam: teslim edilmiş siparişler",
+    "file": "filter_overview_dates_2018Q1.png",
+    "captured_at_utc": "2026-10-25T16:15:33Z"
+  },
+  {
+    "name": "filter_overview_dates_2018-06-10_2018-08-29_hover_july",
+    "scroll_width": 1440,
+    "client_width": 1440,
+    "horizontal_overflow": false,
+    "title": "Genel Bakış",
+    "errors": [],
+    "infos": [],
+    "metrics": [
+      "Ürün satış tutarı | 2.299.774,16 BRL",
+      "Sipariş sayısı | 16.863",
+      "Müşteri sayısı | 16.675",
+      "Ortalama sepet tutarı | 136,38 BRL"
+    ],
+    "plotly_charts": 1,
+    "chart_first_trace": [
+      {
+        "points": 3,
+        "y_sum": 2299774.16
+      }
+    ],
+    "x_tick_labels": [
+      {
+        "count": 3,
+        "angle": 0,
+        "overlapping_pairs": 0,
+        "min_gap_px": 254.9
+      }
+    ],
+    "scope": "Filtre kapsamı — Tarih: 10.06.2018 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: tümü · Kapsam: teslim edilmiş siparişler",
+    "file": "filter_overview_dates_2018-06-10_2018-08-29_hover_july.png",
+    "captured_at_utc": "2026-10-25T16:15:41Z"
+  }
+]

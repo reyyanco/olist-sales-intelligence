@@ -1,0 +1,138 @@
+{
+  "database": "olist",
+  "data": "GERÇEK Olist verisi (data/raw)",
+  "mode": "invariants",
+  "at_utc": "2026-10-25T13:18:46+00:00",
+  "result": [
+    {
+      "check": "product_sales_no_join_duplication",
+      "purpose": "Ürün satış tutarı kalem/ödeme/yorum join'leriyle çoğalmıyor (staging'den bağımsız toplam)",
+      "expected": "13221498.11",
+      "actual": "13221498.11",
+      "status": "geçti"
+    },
+    {
+      "check": "naive_join_would_inflate",
+      "purpose": "Bilgi: kalem×ödeme×yorum doğrudan join edilseydi tutar şişerdi (modelin bunu yapmadığını gösterir)",
+      "expected": "> 13221498.11",
+      "actual": "13757136.52",
+      "status": "geçti"
+    },
+    {
+      "check": "payment_not_mixed_with_product_sales",
+      "purpose": "Ödeme tutarı ürün satış tutarından ayrı tutuluyor ve doğru kaynaktan geliyor",
+      "expected": {
+        "product_sales": "13221498.11",
+        "payment_amount": "15422461.77"
+      },
+      "actual": {
+        "product_sales": "13221498.11",
+        "payment_amount": "15422461.77"
+      },
+      "status": "geçti"
+    },
+    {
+      "check": "order_count_not_item_count",
+      "purpose": "Sipariş sayısı kalem sayısından ayrı ve doğru",
+      "expected": {
+        "orders": 96478,
+        "items": 110197
+      },
+      "actual": {
+        "orders": 96478,
+        "items": 110197
+      },
+      "status": "geçti"
+    },
+    {
+      "check": "customer_count_uses_unique_id",
+      "purpose": "Müşteri sayısı customer_unique_id ile (93358); customer_id ile sayılsaydı 96478 olurdu",
+      "expected": 93358,
+      "actual": 93358,
+      "status": "geçti"
+    },
+    {
+      "check": "delivery_denominators",
+      "purpose": "Teslimat süresi ve geç teslim oranı paydası = teslim zamanı DOLU teslim edilmiş siparişler",
+      "expected": {
+        "avg_days": "12.56",
+        "measured": 96470,
+        "late": 6534,
+        "late_rate": "0.0677",
+        "unmeasured": 8
+      },
+      "actual": {
+        "avg_days": "12.56",
+        "measured": 96470,
+        "late": 6534,
+        "late_rate": "0.0677",
+        "unmeasured": 8
+      },
+      "status": "geçti"
+    },
+    {
+      "check": "rfm_excludes_purchases_after_as_of",
+      "purpose": "RFM (as_of=2018-01-01) yalnızca bu günden önceki satın almaları içerir; frequency = farklı sipariş",
+      "expected": {
+        "customers": 42395,
+        "frequency_sum": 43695,
+        "max_last_purchase": "2017-12-31",
+        "monetary": "6003372.99"
+      },
+      "actual": {
+        "customers": 42395,
+        "frequency_sum": 43695,
+        "max_last_purchase": "2017-12-31",
+        "monetary": "6003372.99"
+      },
+      "status": "geçti"
+    },
+    {
+      "check": "repeat_purchase_unique_and_distinct_orders",
+      "purpose": "Tekrar satın alma: customer_unique_id, ≥2 farklı sipariş",
+      "expected": {
+        "customers": 93358,
+        "repeaters": 2801
+      },
+      "actual": {
+        "customers": 93358,
+        "repeaters": 2801
+      },
+      "status": "geçti"
+    },
+    {
+      "check": "dashboard_monthly_same_scope_as_kpis",
+      "purpose": "Dashboard: 15.01–10.03.2018 aralığında aylık seri toplamı = KPI = doğrudan SQL",
+      "expected": {
+        "direct_sql_sales": "1657285.69",
+        "kpi_orders": 12891
+      },
+      "actual": {
+        "kpi_sales": "1657285.69",
+        "monthly_sum_sales": "1657285.69",
+        "monthly_sum_orders": "12891"
+      },
+      "status": "geçti"
+    },
+    {
+      "check": "single_sales_scope_rule",
+      "purpose": "Raporlama nesnelerinde satış kapsamı tek kural: order_status = 'delivered' (başka durum literali yok)",
+      "expected": [
+        "= 'delivered'"
+      ],
+      "actual": [
+        "= 'delivered'"
+      ],
+      "status": "geçti",
+      "detail": {
+        "= 'delivered'": [
+          "view v_dashboard_items",
+          "view v_dashboard_orders",
+          "view v_order_payment_differences",
+          "view v_orders",
+          "view v_sales_items"
+        ]
+      }
+    }
+  ]
+}

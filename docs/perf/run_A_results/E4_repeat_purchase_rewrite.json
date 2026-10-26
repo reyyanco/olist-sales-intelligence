@@ -1,0 +1,160 @@
+{
+  "id": "E4_repeat_purchase_rewrite",
+  "title": "Tekrar satın alma oranı (reporting.v_repeat_purchase)",
+  "technique": "sorgu düzenleme",
+  "params": {},
+  "states": [
+    {
+      "state": "baseline",
+      "sql": "SELECT * FROM reporting.v_repeat_purchase ORDER BY cohort_month NULLS LAST",
+      "measurement": {
+        "timed_out": true,
+        "timeout_ms": 60000,
+        "phase": "warmup",
+        "completed_runs_ms": []
+      },
+      "plan_file": "E4_repeat_purchase_rewrite_baseline.json",
+      "plan_analyzed": false,
+      "plan": {
+        "total_cost_estimate": 251814014.41,
+        "execution_time_ms": null,
+        "planning_time_ms": null,
+        "node_types": [
+          "Aggregate",
+          "Gather Merge",
+          "Hash",
+          "Hash Join",
+          "Index Scan",
+          "Nested Loop",
+          "Seq Scan",
+          "Sort",
+          "Subquery Scan",
+          "Unique"
+        ],
+        "indexes_used": [
+          "fact_orders_customer_id_key"
+        ],
+        "seq_scans": [
+          "dim_customer",
+          "fact_orders"
+        ],
+        "shared_hit_blocks": null,
+        "shared_read_blocks": null,
+        "temp_written_blocks": null,
+        "jit": true
+      }
+    },
+    {
+      "state": "btree_customer_unique_id",
+      "sql": "SELECT * FROM reporting.v_repeat_purchase ORDER BY cohort_month NULLS LAST",
+      "measurement": {
+        "timings_ms": [
+          1507.649,
+          1594.754,
+          1442.916,
+          1507.458,
+          1557.887,
+          1516.623,
+          1492.234
+        ],
+        "row_count": 24,
+        "result_md5": "d6c54a9b936c03a36aa5d8dade5e000a",
+        "warmup_runs": 2,
+        "median_ms": 1507.649,
+        "min_ms": 1442.916,
+        "max_ms": 1594.754
+      },
+      "plan_file": "E4_repeat_purchase_rewrite_btree_customer_unique_id.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 1600653.1,
+        "execution_time_ms": 1574.231,
+        "planning_time_ms": 0.749,
+        "node_types": [
+          "Aggregate",
+          "Gather Merge",
+          "Hash",
+          "Hash Join",
+          "Index Scan",
+          "Nested Loop",
+          "Seq Scan",
+          "Sort",
+          "Subquery Scan",
+          "Unique"
+        ],
+        "indexes_used": [
+          "fact_orders_customer_id_key",
+          "perf_dim_customer_unique_idx"
+        ],
+        "seq_scans": [
+          "dim_customer",
+          "fact_orders"
+        ],
+        "shared_hit_blocks": 758745,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 1066,
+        "jit": true
+      },
+      "description": "dim_customer(customer_unique_id) B-tree (ana modeldeki dim_customer_unique_id_idx ile aynı tanım)",
+      "apply_sql": [
+        "CREATE INDEX perf_dim_customer_unique_idx ON dw.dim_customer (customer_unique_id)"
+      ],
+      "apply_ms_single_run": 301.051,
+      "index_sizes_bytes": {
+        "dw.perf_dim_customer_unique_idx": 5742592
+      },
+      "median_speedup_lower_bound": 39.8
+    },
+    {
+      "state": "single_pass_aggregate",
+      "sql": "WITH customers AS ( SELECT customer_unique_id, min(purchase_month) AS cohort_month, count(DISTINCT order_id) AS orders FROM reporting.v_orders WHERE in_sales_scope GROUP BY customer_unique_id) SELECT CASE WHEN GROUPING(cohort_month) = 1 THEN 'total' ELSE 'cohort' END AS grouping_level, cohort_month, count(*) AS customer_count, count(*) FILTER (WHERE orders >= 2) AS repeat_customer_count, round(count(*) FILTER (WHERE orders >= 2)::numeric / NULLIF(count(*), 0), 4) AS repeat_purchase_rate FROM customers GROUP BY GROUPING SETS ((cohort_month), ()) ORDER BY cohort_month NULLS LAST",
+      "measurement": {
+        "timings_ms": [
+          411.919,
+          399.411,
+          405.49,
+          399.993,
+          359.713,
+          430.222,
+          376.874
+        ],
+        "row_count": 24,
+        "result_md5": "d6c54a9b936c03a36aa5d8dade5e000a",
+        "warmup_runs": 2,
+        "median_ms": 399.993,
+        "min_ms": 359.713,
+        "max_ms": 430.222
+      },
+      "plan_file": "E4_repeat_purchase_rewrite_single_pass_aggregate.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 29755.83,
+        "execution_time_ms": 416.661,
+        "planning_time_ms": 0.438,
+        "node_types": [
+          "Aggregate",
+          "Hash",
+          "Hash Join",
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "dim_customer",
+          "fact_orders"
+        ],
+        "shared_hit_blocks": 4016,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 2151,
+        "jit": false
+      },
+      "description": "DISTINCT ON + EXISTS yerine müşteri başına tek geçişli toplama (count(DISTINCT order_id) >= 2)",
+      "apply_sql": [],
+      "apply_ms_single_run": null,
+      "index_sizes_bytes": {},
+      "result_reference_state": "btree_customer_unique_id",
+      "result_equal_to_reference": true,
+      "median_speedup_lower_bound": 150.0
+    }
+  ]
+}

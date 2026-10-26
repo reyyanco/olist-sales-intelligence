@@ -1,0 +1,71 @@
+# Gizli bilgiler ve yerel kimlik bilgileri
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+kaggle.json
+.kaggle/
+
+# Ham ve işlenmiş veri (git'e eklenmez; klasör yapısı .gitkeep ile korunur).
+# Sentetik test verisi tests/fixtures/ altındadır ve depoya girer.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/
+
+# Veritabanı yedekleri (scripts/backup.ps1); gerçek veri içerir, git'e eklenmez
+backups/
+*.dump
+*.pgdump
+*.backup
+*.bak
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db
+
+# Arşivler (indirilen veri arşivleri, proje ZIP'leri)
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+
+# Python: sanal ortamlar (tools/.venv dahil), önbellekler, test çıktıları
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+node_modules/
+
+# İndirilmiş çalıştırılabilir dosyalar ve kurulum paketleri
+*.exe
+*.msi
+
+# Geçici dosyalar ve kayıtlar
+tmp/
+*.tmp
+*.log
+
+# Yerel taslak: GitHub'daki tek giriş belgesi iki dilli README.md'dir (yalnızca kök dizindeki dosya)
+/README.en.md
+
+# Editör, yerel araç ayarları, işletim sistemi
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.claude/settings.local.json
+Thumbs.db
+desktop.ini
+.DS_Store

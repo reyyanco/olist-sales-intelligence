@@ -1,0 +1,113 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 1530.71,
+      "Total Cost": 1530.72,
+      "Plan Rows": 7,
+      "Plan Width": 49,
+      "Actual Startup Time": 7.956,
+      "Actual Total Time": 7.958,
+      "Actual Rows": 6,
+      "Actual Loops": 1,
+      "Sort Key": [
+        "orders_part.order_status"
+      ],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 25,
+      "Sort Space Type": "Memory",
+      "Shared Hit Blocks": 667,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Aggregate",
+          "Strategy": "Hashed",
+          "Partial Mode": "Simple",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 1530.52,
+          "Total Cost": 1530.61,
+          "Plan Rows": 7,
+          "Plan Width": 49,
+          "Actual Startup Time": 7.94,
+          "Actual Total Time": 7.943,
+          "Actual Rows": 6,
+          "Actual Loops": 1,
+          "Group Key": [
+            "orders_part.order_status"
+          ],
+          "Planned Partitions": 0,
+          "HashAgg Batches": 1,
+          "Peak Memory Usage": 24,
+          "Disk Usage": 0,
+          "Shared Hit Blocks": 667,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "orders_part_2018",
+              "Alias": "orders_part",
+              "Startup Cost": 0.0,
+              "Total Cost": 1477.16,
+              "Plan Rows": 7114,
+              "Plan Width": 15,
+              "Actual Startup Time": 0.017,
+              "Actual Total Time": 6.096,
+              "Actual Rows": 7211,
+              "Actual Loops": 1,
+              "Filter": "((purchase_ts >= '2018-03-01 00:00:00'::timestamp without time zone) AND (purchase_ts < '2018-04-01 00:00:00'::timestamp without time zone))",
+              "Rows Removed by Filter": 46800,
+              "Shared Hit Blocks": 667,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 0,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 0.195,
+    "Triggers": [],
+    "Execution Time": 7.999
+  }
+]

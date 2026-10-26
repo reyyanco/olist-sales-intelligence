@@ -1,0 +1,119 @@
+name: olist-sales-intelligence
+
+# Python servislerinin veritabanı bağlantı değişkenleri.
+x-db-env: &db-env
+  POSTGRES_HOST: db
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB .env içinde tanımlı olmalı}
+  POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER .env içinde tanımlı olmalı}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD .env içinde tanımlı olmalı}
+
+# Python servislerinin ortak ayarları. İmaj yalnızca "app" servisinde derlenir;
+# böylece aynı imaj birden fazla kez paralel derlenmez.
+x-app: &app
+  image: olist-sales-intelligence-app:local
+  pull_policy: never
+  environment:
+    <<: *db-env
+  depends_on:
+    db:
+      condition: service_healthy
+
+services:
+  # Yalnızca imaj derlemek için: docker compose build app (çalıştırılmaz).
+  app:
+    build:
+      context: .
+    image: olist-sales-intelligence-app:local
+    profiles: ["build"]
+
+  db:
+    image: postgres:16.15-bookworm@sha256:d81f7b51697014367236d07ec58b54153fc28f828b72bf247fe5c7487520bcb0
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB .env içinde tanımlı olmalı}
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER .env içinde tanımlı olmalı}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD .env içinde tanımlı olmalı}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Port dışarı açılmaz; servisler Docker ağı üzerinden bağlanır.
+    # Yerel erişim gerekirse: compose.db-port.yaml
+    healthcheck:
+      # İlk kurulumda geçici sunucu yalnızca Unix soketini dinler; TCP üzerinden
+      # gerçek bir sorgu, sunucu gerçekten hazır olmadan sağlıklı sayılmayı önler.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\" && psql -h 127.0.0.1 -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\" -tAc 'SELECT 1' | grep -qx 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+      start_interval: 2s
+
+  # Tek seferlik iş: SQL şemasını uygular, data/raw CSV'lerini yükler, dw'yi yeniler ve doğrular.
+  etl:
+    <<: *app
+    profiles: ["jobs"]
+    command: ["python", "-m", "etl", "run"]
+    environment:
+      <<: *db-env
+      # Yalnızca "setup-dashboard-role" için: dashboard giriş rolünün adı ve parolası
+      DASHBOARD_DB_USER: ${DASHBOARD_DB_USER:-}
+      DASHBOARD_DB_PASSWORD: ${DASHBOARD_DB_PASSWORD:-}
+    volumes:
+      - ./etl:/app/etl:ro
+      - ./sql:/app/sql:ro
+      - ./data/raw:/app/data/raw:ro
+
+  # Tek seferlik iş: pytest. Gerçek veri klasörü bağlanmaz; testler ayrı veritabanını kullanır.
+  tests:
+    <<: *app
+    profiles: ["jobs"]
+    environment:
+      <<: *db-env
+      POSTGRES_TEST_DB: ${POSTGRES_TEST_DB:?POSTGRES_TEST_DB .env içinde tanımlı olmalı}
+    command: ["pytest"]
+    volumes:
+      - ./etl:/app/etl:ro
+      - ./sql:/app/sql:ro
+      - ./dashboard:/app/dashboard:ro
+      - ./perf:/app/perf:ro
+      - ./tests:/app/tests:ro
+
+  # Sürekli çalışan servis. Yalnızca bu bilgisayardan erişilir (127.0.0.1).
+  dashboard:
+    <<: *app
+    profiles: ["dashboard"]
+    restart: unless-stopped
+    command: ["streamlit", "run", "dashboard/app.py"]
+    environment:
+      <<: *db-env
+      # Dashboard yönetici hesabıyla DEĞİL, yalnızca reporting okuma yetkili rolle bağlanır.
+      POSTGRES_USER: ${DASHBOARD_DB_USER:?DASHBOARD_DB_USER .env içinde tanımlı olmalı (.\scripts\new-env.ps1)}
+      POSTGRES_PASSWORD: ${DASHBOARD_DB_PASSWORD:?DASHBOARD_DB_PASSWORD .env içinde tanımlı olmalı (.\scripts\new-env.ps1)}
+      STREAMLIT_SERVER_ADDRESS: 0.0.0.0
+      STREAMLIT_SERVER_PORT: "8501"
+      STREAMLIT_SERVER_HEADLESS: "true"
+      STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
+      # Ham hata ayrıntıları ve izleri arayüzde gösterilmez.
+      STREAMLIT_CLIENT_SHOW_ERROR_DETAILS: "false"
+      STREAMLIT_CLIENT_TOOLBAR_MODE: "viewer"
+      # Tema: açık arka plan, koyu lacivert metin, turkuaz vurgu.
+      STREAMLIT_THEME_BASE: light
+      STREAMLIT_THEME_PRIMARY_COLOR: "#0E9AA7"
+      STREAMLIT_THEME_BACKGROUND_COLOR: "#F7FAFC"
+      STREAMLIT_THEME_SECONDARY_BACKGROUND_COLOR: "#EAF3F6"
+      STREAMLIT_THEME_TEXT_COLOR: "#0B1F3A"
+    ports:
+      - "127.0.0.1:${DASHBOARD_PORT:-8501}:8501"
+    volumes:
+      - ./etl:/app/etl:ro
+      - ./dashboard:/app/dashboard:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=4).status == 200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+      start_interval: 2s
+
+volumes:
+  pgdata:

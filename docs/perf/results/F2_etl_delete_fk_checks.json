@@ -1,0 +1,29 @@
+{
+  "id": "F2_etl_delete_fk_checks",
+  "kind": "tek seferlik tanı (n=1), benchmark değil",
+  "data": "GERÇEK Olist verisi, olist_perf; ek indeks yok başlangıç durumu",
+  "procedure": "BEGIN; DELETE dw.fact_payments; DELETE dw.fact_sales; DELETE dw.fact_orders; <ölçülen DELETE>; ROLLBACK (ETL'deki silme sırası)",
+  "statement_timeout_ms": 120000,
+  "measurements_ms": {
+    "delete_dim_product_without_fact_sales_product_idx": {
+      "result": "statement_timeout",
+      "elapsed_ms": 120012.311,
+      "blocking_statement": "SELECT 1 FROM ONLY \"dw\".\"fact_sales\" x WHERE $1 OPERATOR(pg_catalog.=) \"product_id\" FOR KEY SHARE OF x"
+    },
+    "delete_dim_product_with_fact_sales_product_idx": 592.723,
+    "delete_dim_seller_without_fact_sales_seller_idx": 13223.166,
+    "delete_dim_seller_with_fact_sales_seller_idx": 164.398,
+    "create_fact_sales_product_idx": 133.74,
+    "create_fact_sales_seller_idx": 114.182
+  },
+  "main_db_index_usage_counters_2026-10-24": {
+    "fact_sales_product_idx_idx_scan": 197744,
+    "dim_product_rows": 32951,
+    "fact_sales_seller_idx_idx_scan": 18584,
+    "dim_seller_rows": 3095,
+    "fact_orders_status_idx_idx_scan": 11,
+    "dim_customer_unique_id_idx_idx_scan": 373432,
+    "stats_reset": "never"
+  },
+  "conclusion": "fact_sales_product_idx ve fact_sales_seller_idx dashboard sorgularında kullanılmıyor (D1) ama ETL tam yenilemesindeki DELETE'lerin yabancı anahtar kontrolleri için gerekli."
+}

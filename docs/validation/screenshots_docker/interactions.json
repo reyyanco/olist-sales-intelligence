@@ -1,0 +1,97 @@
+[
+  {
+    "check": "default_overview",
+    "metrics": [
+      "Ürün satış tutarı | 13.221.498,11 BRL",
+      "Sipariş sayısı | 96.478",
+      "Müşteri sayısı | 93.358",
+      "Ortalama sepet tutarı | 137,04 BRL"
+    ],
+    "chart": [
+      {
+        "points": 24,
+        "y_sum": 13221498.11
+      }
+    ]
+  },
+  {
+    "check": "overview_state_RJ",
+    "metrics_changed": true,
+    "chart_changed": true,
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: RJ · Kategori: tümü · Kapsam: teslim edilmiş siparişler",
+    "metrics": [
+      "Ürün satış tutarı | 1.759.651,13 BRL",
+      "Sipariş sayısı | 12.350",
+      "Müşteri sayısı | 11.917",
+      "Ortalama sepet tutarı | 142,48 BRL"
+    ],
+    "chart": [
+      {
+        "points": 24,
+        "y_sum": 1759651.13
+      }
+    ]
+  },
+  {
+    "check": "overview_category_health_beauty",
+    "metrics_changed": true,
+    "chart_changed": true,
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: health_beauty · Kapsam: teslim edilmiş siparişler",
+    "metrics": [
+      "Ürün satış tutarı | 1.233.131,72 BRL",
+      "Sipariş sayısı | 8.647",
+      "Müşteri sayısı | 8.498",
+      "Ortalama sepet tutarı | 142,61 BRL"
+    ],
+    "chart": [
+      {
+        "points": 24,
+        "y_sum": 1233131.72
+      }
+    ]
+  },
+  {
+    "check": "overview_dates_2018Q1",
+    "metrics_changed": true,
+    "chart_changed": true,
+    "scope": "Filtre kapsamı — Tarih: 01.01.2018 – 31.03.2018 (satın alma günü) · Eyalet: tümü · Kategori: tümü · Kapsam: teslim edilmiş siparişler",
+    "metrics": [
+      "Ürün satış tutarı | 2.704.438,38 BRL",
+      "Sipariş sayısı | 20.627",
+      "Müşteri sayısı | 20.211",
+      "Ortalama sepet tutarı | 131,11 BRL"
+    ],
+    "chart": [
+      {
+        "points": 3,
+        "y_sum": 2704438.38
+      }
+    ]
+  },
+  {
+    "check": "nav_click_to_delivery",
+    "title": "Teslimat Performansı",
+    "url": "http://dashboard:8501/teslimat"
+  },
+  {
+    "check": "delivery_state_BA",
+    "metrics_changed": true,
+    "chart_changed": true,
+    "scope": "Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: BA · Kategori: uygulanmaz (sipariş düzeyi) · Kapsam: teslim edilmiş siparişler",
+    "metrics": [
+      "Ortalama teslimat süresi | 19,34 gün",
+      "Geç teslimat oranı | %12,16",
+      "Ölçülen sipariş | 3.256",
+      "Teslim zamanı boş | 0"
+    ]
+  },
+  {
+    "check": "empty_result",
+    "infos": [
+      "Seçilen filtrelerle sonuç bulunamadı. Tarih aralığını genişletin veya filtreleri azaltın."
+    ],
+    "metrics": [],
+    "errors": [],
+    "charts": 0
+  }
+]

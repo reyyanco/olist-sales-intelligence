@@ -1,0 +1,112 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 36.39,
+      "Total Cost": 36.89,
+      "Plan Rows": 200,
+      "Plan Width": 168,
+      "Actual Startup Time": 1048.148,
+      "Actual Total Time": 1048.149,
+      "Actual Rows": 8,
+      "Actual Loops": 1,
+      "Sort Key": [
+        "(count(*)) DESC",
+        "r.segment"
+      ],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 25,
+      "Sort Space Type": "Memory",
+      "Shared Hit Blocks": 4016,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 7989,
+      "Temp Written Blocks": 7292,
+      "Plans": [
+        {
+          "Node Type": "Aggregate",
+          "Strategy": "Hashed",
+          "Partial Mode": "Simple",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 22.75,
+          "Total Cost": 28.75,
+          "Plan Rows": 200,
+          "Plan Width": 168,
+          "Actual Startup Time": 1048.126,
+          "Actual Total Time": 1048.135,
+          "Actual Rows": 8,
+          "Actual Loops": 1,
+          "Group Key": [
+            "r.segment"
+          ],
+          "Planned Partitions": 0,
+          "HashAgg Batches": 1,
+          "Peak Memory Usage": 40,
+          "Disk Usage": 0,
+          "Shared Hit Blocks": 4016,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 7989,
+          "Temp Written Blocks": 7292,
+          "Plans": [
+            {
+              "Node Type": "Function Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Function Name": "fn_customer_rfm",
+              "Alias": "r",
+              "Startup Cost": 0.25,
+              "Total Cost": 10.25,
+              "Plan Rows": 1000,
+              "Plan Width": 72,
+              "Actual Startup Time": 1017.338,
+              "Actual Total Time": 1025.445,
+              "Actual Rows": 93358,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 4016,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 7989,
+              "Temp Written Blocks": 7292
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 0,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 0.22,
+    "Triggers": [],
+    "Execution Time": 1050.336
+  }
+]

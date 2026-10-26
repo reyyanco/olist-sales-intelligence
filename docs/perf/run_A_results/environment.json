@@ -1,0 +1,82 @@
+{
+  "measured_at_utc": "2026-10-24T16:53:16+00:00",
+  "data": "GERÇEK Olist verisi (data/raw), olist_perf veritabanına yükleme hattıyla yüklendi",
+  "database": "olist_perf",
+  "postgres_version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+  "settings": {
+    "default_statistics_target": "100",
+    "effective_cache_size": "5242888kB",
+    "jit": "on",
+    "maintenance_work_mem": "65536kB",
+    "max_parallel_workers_per_gather": "2",
+    "random_page_cost": "4",
+    "shared_buffers": "163848kB",
+    "work_mem": "4096kB"
+  },
+  "container_cpu_count": 16,
+  "container_mem_total_kb": 7786148,
+  "database_size_bytes": 321608727,
+  "row_counts": {
+    "dw.dim_customer": 99441,
+    "dw.dim_product": 32951,
+    "dw.dim_seller": 3095,
+    "dw.dim_date": 800,
+    "dw.fact_orders": 99441,
+    "dw.fact_sales": 112650,
+    "dw.fact_payments": 103886
+  },
+  "etl_run": {
+    "run_id": "a0532d69-0e42-4f05-b975-b860aa355d08",
+    "duration_seconds": "93.135",
+    "finished_at": "2026-10-24 16:41:59.874627+00:00"
+  },
+  "source_files": [
+    {
+      "file": "olist_customers_dataset.csv",
+      "sha256": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2",
+      "rows": 99441
+    },
+    {
+      "file": "olist_geolocation_dataset.csv",
+      "sha256": "b514f6fc991b9566aeba02aa5d67e2c3630f034b60a0e05aa0d082a3b66d88d6",
+      "rows": 1000163
+    },
+    {
+      "file": "olist_order_items_dataset.csv",
+      "sha256": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+      "rows": 112650
+    },
+    {
+      "file": "olist_order_payments_dataset.csv",
+      "sha256": "4f713964f2815dbbaa40b9488268c55aac3627bfce5aa96cf58d1f3616de3cc0",
+      "rows": 103886
+    },
+    {
+      "file": "olist_order_reviews_dataset.csv",
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "rows": 99224
+    },
+    {
+      "file": "olist_orders_dataset.csv",
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "rows": 99441
+    },
+    {
+      "file": "olist_products_dataset.csv",
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "rows": 32951
+    },
+    {
+      "file": "olist_sellers_dataset.csv",
+      "sha256": "1f643d2b950373b85735e7794b20986f528d7a000432e7c6f9bcbb44d0846a0e",
+      "rows": 3095
+    },
+    {
+      "file": "product_category_name_translation.csv",
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "rows": 71
+    }
+  ],
+  "measurement_method": "2 ısınma çalışması (ölçüme katılmaz) + 7 ölçüm; istemcide execute+fetchall süresi (time.perf_counter). Önbellek temizlenmedi: tüm sorgu ölçümleri sıcak önbellek koşulundadır. EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) ayrı çalıştırıldı. Yazma/yenileme/yükleme ölçümleri: 1 ısınma + 5 ölçüm. Sorgu başına statement_timeout=60000 ms; aşan ölçüm 'timed_out' kaydedilir ve planı yalnızca EXPLAIN (çalıştırmadan) ile alınır.",
+  "client": "psycopg2, aynı Docker ağı üzerinden (db konteyneri), autocommit"
+}

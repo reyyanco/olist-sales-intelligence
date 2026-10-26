@@ -1,0 +1,275 @@
+{
+  "id": "E3_open_orders",
+  "title": "Teslim edilmemiş son 50 sipariş",
+  "technique": "durum indeksi / tam indeks / partial index",
+  "params": {},
+  "states": [
+    {
+      "state": "baseline",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          15.795,
+          18.261,
+          15.413,
+          15.496,
+          15.632,
+          15.852,
+          15.043
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 15.632,
+        "min_ms": 15.043,
+        "max_ms": 18.261
+      },
+      "plan_file": "E3_open_orders_baseline.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 3909.66,
+        "execution_time_ms": 14.429,
+        "planning_time_ms": 0.11,
+        "node_types": [
+          "Limit",
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "fact_orders"
+        ],
+        "shared_hit_blocks": 2566,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": null,
+        "rows_inserted": 99441,
+        "timings_ms": [
+          94.292,
+          89.837,
+          86.109,
+          88.41,
+          78.677
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 88.41,
+        "min_ms": 78.677,
+        "max_ms": 94.292
+      }
+    },
+    {
+      "state": "btree_status",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          16.028,
+          15.883,
+          15.638,
+          14.628,
+          15.047,
+          17.273,
+          16.994
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 15.883,
+        "min_ms": 14.628,
+        "max_ms": 17.273
+      },
+      "plan_file": "E3_open_orders_btree_status.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 3909.66,
+        "execution_time_ms": 14.287,
+        "planning_time_ms": 0.116,
+        "node_types": [
+          "Limit",
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "fact_orders"
+        ],
+        "shared_hit_blocks": 2566,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_orders(order_status) B-tree (ana modeldeki fact_orders_status_idx ile aynı tanım)",
+      "apply_sql": [
+        "CREATE INDEX perf_orders_status_idx ON dw.fact_orders (order_status)"
+      ],
+      "apply_ms_single_run": 94.02,
+      "index_sizes_bytes": {
+        "dw.perf_orders_status_idx": 712704
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 0.98,
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": "CREATE INDEX ON {t} (order_status)",
+        "rows_inserted": 99441,
+        "timings_ms": [
+          214.255,
+          261.025,
+          194.736,
+          227.308,
+          196.231
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 214.255,
+        "min_ms": 194.736,
+        "max_ms": 261.025
+      }
+    },
+    {
+      "state": "full_purchase_desc",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          1.625,
+          1.906,
+          2.309,
+          2.011,
+          1.812,
+          1.409,
+          1.953
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 1.906,
+        "min_ms": 1.409,
+        "max_ms": 2.309
+      },
+      "plan_file": "E3_open_orders_full_purchase_desc.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 253.01,
+        "execution_time_ms": 1.163,
+        "planning_time_ms": 0.091,
+        "node_types": [
+          "Index Scan",
+          "Limit"
+        ],
+        "indexes_used": [
+          "perf_orders_purchase_full_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 1158,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_orders(purchase_ts DESC, order_id) tam indeks",
+      "apply_sql": [
+        "CREATE INDEX perf_orders_purchase_full_idx ON dw.fact_orders (purchase_ts DESC, order_id)"
+      ],
+      "apply_ms_single_run": 128.333,
+      "index_sizes_bytes": {
+        "dw.perf_orders_purchase_full_idx": 6725632
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 8.2,
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": "CREATE INDEX ON {t} (purchase_ts DESC, order_id)",
+        "rows_inserted": 99441,
+        "timings_ms": [
+          305.018,
+          300.888,
+          338.949,
+          307.122,
+          268.78
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 305.018,
+        "min_ms": 268.78,
+        "max_ms": 338.949
+      }
+    },
+    {
+      "state": "partial_open_orders",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          0.7,
+          0.649,
+          0.808,
+          0.819,
+          0.768,
+          0.688,
+          0.769
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 0.768,
+        "min_ms": 0.649,
+        "max_ms": 0.819
+      },
+      "plan_file": "E3_open_orders_partial_open_orders.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 128.63,
+        "execution_time_ms": 0.117,
+        "planning_time_ms": 0.127,
+        "node_types": [
+          "Index Scan",
+          "Limit"
+        ],
+        "indexes_used": [
+          "perf_orders_open_partial_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 52,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_orders(purchase_ts DESC, order_id) WHERE order_status <> 'delivered' partial indeks",
+      "apply_sql": [
+        "CREATE INDEX perf_orders_open_partial_idx ON dw.fact_orders (purchase_ts DESC, order_id) WHERE order_status <> 'delivered'"
+      ],
+      "apply_ms_single_run": 38.394,
+      "index_sizes_bytes": {
+        "dw.perf_orders_open_partial_idx": 221184
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 20.35,
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": "CREATE INDEX ON {t} (purchase_ts DESC, order_id) WHERE order_status <> 'delivered'",
+        "rows_inserted": 99441,
+        "timings_ms": [
+          94.971,
+          101.054,
+          94.975,
+          97.489,
+          100.03
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 97.489,
+        "min_ms": 94.971,
+        "max_ms": 101.054
+      }
+    }
+  ]
+}

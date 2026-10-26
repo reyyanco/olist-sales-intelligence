@@ -1,0 +1,239 @@
+﻿[
+    {
+        "step":  "00_teardown_previous_validation",
+        "exit_code":  0,
+        "seconds":  0.2,
+        "tail":  [
+                     "time=\"2026-10-25T16:15:16+03:00\" level=warning msg=\"Warning: No resource found to remove for project \\\"olist-validation\\\".\""
+                 ]
+    },
+    {
+        "step":  "01_build_image",
+        "exit_code":  0,
+        "seconds":  2.7,
+        "tail":  [
+                     "#17 unpacking to docker.io/library/olist-sales-intelligence-app:local 0.1s done",
+                     "#17 DONE 0.5s",
+                     "",
+                     "#18 resolving provenance for metadata file",
+                     "#18 DONE 0.0s",
+                     " Image olist-sales-intelligence-app:local Built "
+                 ]
+    },
+    {
+        "step":  "02_db_up_fresh_volume",
+        "exit_code":  0,
+        "seconds":  3.3,
+        "tail":  [
+                     " Container olist-validation-db-1 Creating ",
+                     " Container olist-validation-db-1 Created ",
+                     " Container olist-validation-db-1 Starting ",
+                     " Container olist-validation-db-1 Started ",
+                     " Container olist-validation-db-1 Waiting ",
+                     " Container olist-validation-db-1 Healthy "
+                 ]
+    },
+    {
+        "step":  "03_etl_run_first_load",
+        "exit_code":  0,
+        "seconds":  80.1,
+        "tail":  [
+                     "INFO Rapor: report/010_rejections_by_reason.sql (0 satır)",
+                     "INFO Rapor: report/020_out_of_scope_orders.sql (7 satır)",
+                     "INFO Rapor: report/030_payment_vs_items_difference.sql (6 satır)",
+                     "INFO Rapor: report/040_duplicates_and_conflicts.sql (0 satır)",
+                     "INFO Rapor: report/050_category_translation_policy.sql (3 satır)",
+                     "INFO run_id=3b32aaa1-69b1-4da4-b7db-18cbb12dbdb9, süre=76.216 s"
+                 ]
+    },
+    {
+        "step":  "04_snapshot_after_first_load",
+        "exit_code":  0,
+        "seconds":  5.9,
+        "tail":  [
+                     " Container olist-validation-db-1 Running ",
+                     " Container olist-validation-db-1 Waiting ",
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-etl-run-5b2f363e0113 Creating ",
+                     " Container olist-validation-etl-run-5b2f363e0113 Created ",
+                     "{\"dw.dim_customer\": [99441, \"570679d70c6e1e8bb72f716b9457520a\"], \"dw.dim_product\": [32951, \"b0cefeae8b0ecae80199983f5ce7d425\"], \"dw.dim_seller\": [3095, \"c97af4ee678fcfbf0b691fae377cfdda\"], \"dw.dim_date\": [800, \"478ea1cd1346c86f6083c782cd47db4f\"], \"dw.fact_orders\": [99441, \"2f25dc056b30b4de901215b6ca"
+                 ]
+    },
+    {
+        "step":  "05_etl_run_second_load",
+        "exit_code":  0,
+        "seconds":  106.6,
+        "tail":  [
+                     "INFO Rapor: report/010_rejections_by_reason.sql (0 satır)",
+                     "INFO Rapor: report/020_out_of_scope_orders.sql (7 satır)",
+                     "INFO Rapor: report/030_payment_vs_items_difference.sql (6 satır)",
+                     "INFO Rapor: report/040_duplicates_and_conflicts.sql (0 satır)",
+                     "INFO Rapor: report/050_category_translation_policy.sql (3 satır)",
+                     "INFO run_id=8f3aa77f-32b4-4784-89fb-2ca7498be707, süre=102.860 s"
+                 ]
+    },
+    {
+        "step":  "06_snapshot_after_second_load",
+        "exit_code":  0,
+        "seconds":  5.3,
+        "tail":  [
+                     " Container olist-validation-db-1 Running ",
+                     " Container olist-validation-db-1 Waiting ",
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-etl-run-a479f06f89c4 Creating ",
+                     " Container olist-validation-etl-run-a479f06f89c4 Created ",
+                     "{\"dw.dim_customer\": [99441, \"570679d70c6e1e8bb72f716b9457520a\"], \"dw.dim_product\": [32951, \"b0cefeae8b0ecae80199983f5ce7d425\"], \"dw.dim_seller\": [3095, \"c97af4ee678fcfbf0b691fae377cfdda\"], \"dw.dim_date\": [800, \"478ea1cd1346c86f6083c782cd47db4f\"], \"dw.fact_orders\": [99441, \"2f25dc056b30b4de901215b6ca"
+                 ]
+    },
+    {
+        "step":  "07_invariants_real_data",
+        "exit_code":  0,
+        "seconds":  6.5,
+        "tail":  [
+                     "geçti      customer_count_uses_unique_id",
+                     "geçti      delivery_denominators",
+                     "geçti      rfm_excludes_purchases_after_as_of",
+                     "geçti      repeat_purchase_unique_and_distinct_orders",
+                     "geçti      dashboard_monthly_same_scope_as_kpis",
+                     "geçti      single_sales_scope_rule"
+                 ]
+    },
+    {
+        "step":  "08_setup_dashboard_role_1",
+        "exit_code":  0,
+        "seconds":  3.2,
+        "tail":  [
+                     " Container olist-validation-db-1 Running ",
+                     " Container olist-validation-db-1 Waiting ",
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-etl-run-4d95cc6c2f21 Creating ",
+                     " Container olist-validation-etl-run-4d95cc6c2f21 Created ",
+                     "INFO Dashboard rolü oluşturuldu: olist_dashboard (parola .env\u0027den, gösterilmiyor)"
+                 ]
+    },
+    {
+        "step":  "09_setup_dashboard_role_2",
+        "exit_code":  0,
+        "seconds":  3.5,
+        "tail":  [
+                     " Container olist-validation-db-1 Running ",
+                     " Container olist-validation-db-1 Waiting ",
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-etl-run-8468d46f4c02 Creating ",
+                     " Container olist-validation-etl-run-8468d46f4c02 Created ",
+                     "INFO Dashboard rolü güncellendi: olist_dashboard (parola .env\u0027den, gösterilmiyor)"
+                 ]
+    },
+    {
+        "step":  "10_routines_repeat",
+        "exit_code":  0,
+        "seconds":  7.2,
+        "tail":  [
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-etl-run-9c13da978493 Creating ",
+                     " Container olist-validation-etl-run-9c13da978493 Created ",
+                     "geçti      routines_repeat_no_duplication",
+                     "geçti      refresh_runs_recorded",
+                     "geçti      materialized_views_populated"
+                 ]
+    },
+    {
+        "step":  "11_controlled_failure",
+        "exit_code":  0,
+        "seconds":  86.8,
+        "tail":  [
+                     " Container olist-validation-db-1 Running ",
+                     " Container olist-validation-db-1 Waiting ",
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-etl-run-7278c0c7b312 Creating ",
+                     " Container olist-validation-etl-run-7278c0c7b312 Created ",
+                     "geçti      failed_load_keeps_previous_data"
+                 ]
+    },
+    {
+        "step":  "12_etl_runs_listing",
+        "exit_code":  0,
+        "seconds":  3,
+        "tail":  [
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-etl-run-ffe440d6b93d Creating ",
+                     " Container olist-validation-etl-run-ffe440d6b93d Created ",
+                     "INFO 49da96f8-67a3-45e1-bd73-880d089b61de 2026-10-25 13:19:05+0000   79.742 s failed    QualityCheckError: Başarısız kalite kontrolleri: 999_controlled_failure.sql",
+                     "INFO 8f3aa77f-32b4-4784-89fb-2ca7498be707 2026-10-25 13:16:51+0000  102.860 s succeeded ",
+                     "INFO 3b32aaa1-69b1-4da4-b7db-18cbb12dbdb9 2026-10-25 13:15:25+0000   76.216 s succeeded "
+                 ]
+    },
+    {
+        "step":  "13_pytest_clean_cluster",
+        "exit_code":  0,
+        "seconds":  21.5,
+        "tail":  [
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-tests-run-da387595b05c Creating ",
+                     " Container olist-validation-tests-run-da387595b05c Created ",
+                     "........................................................................ [ 84%]",
+                     ".............                                                            [100%]",
+                     "85 passed in 18.13s"
+                 ]
+    },
+    {
+        "step":  "14_dashboard_up_8502",
+        "exit_code":  0,
+        "seconds":  4.8,
+        "tail":  [
+                     " Container olist-validation-dashboard-1 Starting ",
+                     " Container olist-validation-dashboard-1 Started ",
+                     " Container olist-validation-db-1 Waiting ",
+                     " Container olist-validation-dashboard-1 Waiting ",
+                     " Container olist-validation-db-1 Healthy ",
+                     " Container olist-validation-dashboard-1 Healthy "
+                 ]
+    },
+    {
+        "step":  "15_dashboard_kpi_vs_direct_sql",
+        "exit_code":  0,
+        "seconds":  14.3,
+        "tail":  [
+                     "2026-10-25 13:21:05.619 Thread \u0027MainThread\u0027: missing ScriptRunContext! This warning can be ignored when running in bare mode.",
+                     "OK  two_categories_2018_03: {\u0027Ürün satış tutarı\u0027: \u0027180.149,75 BRL\u0027, \u0027Sipariş sayısı\u0027: \u00271.012\u0027, \u0027Müşteri sayısı\u0027: \u00271.007\u0027, \u0027Ortalama sepet tutarı\u0027: \u0027178,01 BRL\u0027}",
+                     "2026-10-25 13:21:06.637 Thread \u0027MainThread\u0027: missing ScriptRunContext! This warning can be ignored when running in bare mode.",
+                     "OK  delivery_state_BA_2017: {\u0027Ortalama teslimat süresi\u0027: \u002719,54 gün\u0027, \u0027Geç teslimat oranı\u0027: \u0027%10,02\u0027, \u0027Ölçülen sipariş\u0027: \u00271.527\u0027, \u0027Teslim zamanı boş\u0027: \u00270\u0027}",
+                     "2026-10-25 13:21:07.838 Thread \u0027MainThread\u0027: missing ScriptRunContext! This warning can be ignored when running in bare mode.",
+                     "OK  customers_2017: {\u0027Müşteri sayısı\u0027: \u002742.136\u0027, \u0027Tekrar eden müşteri\u0027: \u00271.170\u0027, \u0027Tekrar satın alma oranı\u0027: \u0027%2,78\u0027}"
+                 ]
+    },
+    {
+        "step":  "16_browser_ui_checks_8502",
+        "exit_code":  0,
+        "seconds":  73.5,
+        "tail":  [
+                     "{\"check\": \"overview_state_RJ\", \"metrics_changed\": true, \"chart_changed\": true, \"scope\": \"Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: RJ · Kategori: tümü · Kapsam: teslim edilmiş siparişler\", \"metrics\": [\"Ürün satış tutarı | 1.759.651,13 BRL\", \"Sipariş sayısı | 12.350\", \"Müşteri sayısı | 11.917\", \"Ortalama sepet tutarı | 142,48 BRL\"], \"chart\": [{\"points\": 24, \"y_sum\": 1759651.13}]}",
+                     "{\"check\": \"overview_category_health_beauty\", \"metrics_changed\": true, \"chart_changed\": true, \"scope\": \"Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: tümü · Kategori: health_beauty · Kapsam: teslim edilmiş siparişler\", \"metrics\": [\"Ürün satış tutarı | 1.233.131,72 BRL\", \"Sipariş sayısı | 8.647\", \"Müşteri sayısı | 8.498\", \"Ortalama sepet tutarı | 142,61 BRL\"], \"chart\": [{\"points\": 24, \"y_sum\": 1233131.72}]}",
+                     "{\"check\": \"overview_dates_2018Q1\", \"metrics_changed\": true, \"chart_changed\": true, \"scope\": \"Filtre kapsamı — Tarih: 01.01.2018 – 31.03.2018 (satın alma günü) · Eyalet: tümü · Kategori: tümü · Kapsam: teslim edilmiş siparişler\", \"metrics\": [\"Ürün satış tutarı | 2.704.438,38 BRL\", \"Sipariş sayısı | 20.627\", \"Müşteri sayısı | 20.211\", \"Ortalama sepet tutarı | 131,11 BRL\"], \"chart\": [{\"points\": 3, \"y_sum\": 2704438.38}]}",
+                     "{\"check\": \"nav_click_to_delivery\", \"title\": \"Teslimat Performansı\", \"url\": \"http://127.0.0.1:8502/teslimat\"}",
+                     "{\"check\": \"delivery_state_BA\", \"metrics_changed\": true, \"chart_changed\": true, \"scope\": \"Filtre kapsamı — Tarih: 15.09.2016 – 29.08.2018 (satın alma günü) · Eyalet: BA · Kategori: uygulanmaz (sipariş düzeyi) · Kapsam: teslim edilmiş siparişler\", \"metrics\": [\"Ortalama teslimat süresi | 19,34 gün\", \"Geç teslimat oranı | %12,16\", \"Ölçülen sipariş | 3.256\", \"Teslim zamanı boş | 0\"]}",
+                     "{\"check\": \"empty_result\", \"infos\": [\"Seçilen filtrelerle sonuç bulunamadı. Tarih aralığını genişletin veya filtreleri azaltın.\"], \"metrics\": [], \"errors\": [], \"charts\": 0}"
+                 ]
+    },
+    {
+        "step":  "17_second_load_identical",
+        "exit_code":  0,
+        "seconds":  0,
+        "tail":  [
+                     "snapshots identical: True"
+                 ]
+    },
+    {
+        "step":  "99_teardown_validation_only",
+        "exit_code":  0,
+        "seconds":  2.3,
+        "tail":  [
+                     " Container olist-validation-db-1 Removing ",
+                     " Container olist-validation-db-1 Removed ",
+                     " Volume olist-validation_pgdata Removing ",
+                     " Network olist-validation_default Removing ",
+                     " Volume olist-validation_pgdata Removed ",
+                     " Network olist-validation_default Removed "
+                 ]
+    }
+]

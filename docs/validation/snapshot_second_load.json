@@ -1,0 +1,52 @@
+{
+  "database": "olist",
+  "data": "GERÇEK Olist verisi (data/raw)",
+  "mode": "snapshot",
+  "at_utc": "2026-10-25T13:18:39+00:00",
+  "result": {
+    "dw.dim_customer": [
+      99441,
+      "570679d70c6e1e8bb72f716b9457520a"
+    ],
+    "dw.dim_product": [
+      32951,
+      "b0cefeae8b0ecae80199983f5ce7d425"
+    ],
+    "dw.dim_seller": [
+      3095,
+      "c97af4ee678fcfbf0b691fae377cfdda"
+    ],
+    "dw.dim_date": [
+      800,
+      "478ea1cd1346c86f6083c782cd47db4f"
+    ],
+    "dw.fact_orders": [
+      99441,
+      "2f25dc056b30b4de901215b6caa370f7"
+    ],
+    "dw.fact_sales": [
+      112650,
+      "365676d8eba2f02783efe22e72848b63"
+    ],
+    "dw.fact_payments": [
+      103886,
+      "006abac01820a52a1818029b6909d5ab"
+    ],
+    "reporting.mv_monthly_sales": [
+      23,
+      "c3ad7ec70601ce6fea43dab0d3435fa4"
+    ],
+    "reporting.mv_category_sales": [
+      74,
+      "1801b906a4a6b9a2d4b133622ea54a53"
+    ],
+    "reporting.monthly_summary": [
+      27,
+      "cae0374da3077b579c870af292e76e6c"
+    ],
+    "reporting.v_sales_kpis": [
+      1,
+      "2c9b20c52a497c668d15ddf0bfbfaf70"
+    ]
+  }
+}

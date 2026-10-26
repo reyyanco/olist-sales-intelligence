@@ -1,0 +1,103 @@
+{
+  "id": "E5_category_sales_mv",
+  "title": "Kategori satışları ve kümülatif pay",
+  "technique": "materialized view",
+  "params": {},
+  "states": [
+    {
+      "state": "baseline",
+      "sql": "SELECT * FROM (WITH categories AS (\n         SELECT v_sales_items.category_label,\n            count(*) AS item_count,\n            count(DISTINCT v_sales_items.order_id) AS order_count,\n            sum(v_sales_items.price) AS product_sales\n           FROM reporting.v_sales_items\n          WHERE v_sales_items.in_sales_scope\n          GROUP BY v_sales_items.category_label\n        ), ranked AS (\n         SELECT c.category_label,\n            c.item_count,\n            c.order_count,\n            c.product_sales,\n            row_number() OVER w AS sales_rank,\n            sum(c.product_sales) OVER (ORDER BY c.product_sales DESC, c.category_label ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_sales,\n            sum(c.product_sales) OVER () AS total_sales\n           FROM categories c\n          WINDOW w AS (ORDER BY c.product_sales DESC, c.category_label)\n        )\n SELECT sales_rank::integer AS sales_rank,\n    category_label,\n    item_count,\n    order_count,\n    product_sales::numeric(14,2) AS product_sales,\n    round(product_sales / NULLIF(total_sales, 0::numeric), 4) AS sales_share,\n    cumulative_sales::numeric(14,2) AS cumulative_sales,\n    round(cumulative_sales / NULLIF(total_sales, 0::numeric), 4) AS cumulative_share\n   FROM ranked) q ORDER BY sales_rank",
+      "measurement": {
+        "timings_ms": [
+          536.928,
+          603.57,
+          539.862,
+          553.737,
+          583.511,
+          566.697,
+          567.215
+        ],
+        "row_count": 74,
+        "result_md5": "8f776efff423c625e12021349771a545",
+        "warmup_runs": 2,
+        "median_ms": 566.697,
+        "min_ms": 536.928,
+        "max_ms": 603.57
+      },
+      "plan_file": "E5_category_sales_mv_baseline.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 29041.47,
+        "execution_time_ms": 685.696,
+        "planning_time_ms": 1.065,
+        "node_types": [
+          "Aggregate",
+          "Hash",
+          "Hash Join",
+          "Seq Scan",
+          "Sort",
+          "Subquery Scan",
+          "WindowAgg"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "dim_customer",
+          "dim_product",
+          "fact_orders",
+          "fact_sales"
+        ],
+        "shared_hit_blocks": 7367,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 859,
+        "jit": false
+      }
+    },
+    {
+      "state": "read_materialized_view",
+      "sql": "SELECT * FROM reporting.mv_category_sales ORDER BY sales_rank",
+      "measurement": {
+        "timings_ms": [
+          0.827,
+          0.856,
+          1.339,
+          0.771,
+          0.837,
+          1.087,
+          0.894
+        ],
+        "row_count": 74,
+        "result_md5": "8f776efff423c625e12021349771a545",
+        "warmup_runs": 2,
+        "median_ms": 0.856,
+        "min_ms": 0.771,
+        "max_ms": 1.339
+      },
+      "plan_file": "E5_category_sales_mv_read_materialized_view.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 4.22,
+        "execution_time_ms": 0.043,
+        "planning_time_ms": 0.058,
+        "node_types": [
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "mv_category_sales"
+        ],
+        "shared_hit_blocks": 1,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "Aynı sonucu reporting.mv_category_sales üzerinden okuma",
+      "apply_sql": [],
+      "apply_ms_single_run": null,
+      "index_sizes_bytes": {},
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 662.03
+    }
+  ]
+}

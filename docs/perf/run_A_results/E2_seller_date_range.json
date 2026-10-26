@@ -1,0 +1,282 @@
+{
+  "id": "E2_seller_date_range",
+  "title": "En çok kalemi olan satıcının 2018-01..03 günlük satışları",
+  "technique": "tek kolon / birleşik / INCLUDE indeks",
+  "params": {
+    "seller_id": "6560211a19b47992c3666cc44a7e94c0",
+    "from_key": 20180101,
+    "to_key": 20180331
+  },
+  "states": [
+    {
+      "state": "baseline",
+      "sql": "SELECT purchase_date_key, count(*) AS items, sum(price) AS product_sales FROM dw.fact_sales WHERE seller_id = %(seller_id)s AND purchase_date_key BETWEEN %(from_key)s AND %(to_key)s GROUP BY purchase_date_key ORDER BY purchase_date_key",
+      "measurement": {
+        "timings_ms": [
+          16.501,
+          17.376,
+          19.671,
+          18.837,
+          16.836,
+          15.303,
+          15.711
+        ],
+        "row_count": 83,
+        "result_md5": "5b0f0705189cb3352a2667ee11be7252",
+        "warmup_runs": 2,
+        "median_ms": 16.836,
+        "min_ms": 15.303,
+        "max_ms": 19.671
+      },
+      "plan_file": "E2_seller_date_range_baseline.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 4744.81,
+        "execution_time_ms": 14.58,
+        "planning_time_ms": 0.103,
+        "node_types": [
+          "Aggregate",
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "fact_sales"
+        ],
+        "shared_hit_blocks": 2748,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "write_cost": {
+        "table": "dw.fact_sales",
+        "index_ddl": null,
+        "rows_inserted": 112650,
+        "timings_ms": [
+          80.563,
+          87.198,
+          75.689,
+          77.129,
+          79.894
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 79.894,
+        "min_ms": 75.689,
+        "max_ms": 87.198
+      }
+    },
+    {
+      "state": "btree_seller",
+      "sql": "SELECT purchase_date_key, count(*) AS items, sum(price) AS product_sales FROM dw.fact_sales WHERE seller_id = %(seller_id)s AND purchase_date_key BETWEEN %(from_key)s AND %(to_key)s GROUP BY purchase_date_key ORDER BY purchase_date_key",
+      "measurement": {
+        "timings_ms": [
+          3.588,
+          3.361,
+          2.983,
+          2.649,
+          3.195,
+          3.151,
+          2.863
+        ],
+        "row_count": 83,
+        "result_md5": "5b0f0705189cb3352a2667ee11be7252",
+        "warmup_runs": 2,
+        "median_ms": 3.151,
+        "min_ms": 2.649,
+        "max_ms": 3.588
+      },
+      "plan_file": "E2_seller_date_range_btree_seller.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 2734.3,
+        "execution_time_ms": 1.866,
+        "planning_time_ms": 0.109,
+        "node_types": [
+          "Aggregate",
+          "Bitmap Heap Scan",
+          "Bitmap Index Scan",
+          "Sort"
+        ],
+        "indexes_used": [
+          "perf_sales_seller_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 1353,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_sales(seller_id) tek kolon B-tree",
+      "apply_sql": [
+        "CREATE INDEX perf_sales_seller_idx ON dw.fact_sales (seller_id)"
+      ],
+      "apply_ms_single_run": 192.272,
+      "index_sizes_bytes": {
+        "dw.perf_sales_seller_idx": 1007616
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 5.34,
+      "write_cost": {
+        "table": "dw.fact_sales",
+        "index_ddl": "CREATE INDEX ON {t} (seller_id)",
+        "rows_inserted": 112650,
+        "timings_ms": [
+          433.768,
+          339.004,
+          324.456,
+          324.814,
+          318.415
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 324.814,
+        "min_ms": 318.415,
+        "max_ms": 433.768
+      }
+    },
+    {
+      "state": "composite_seller_date",
+      "sql": "SELECT purchase_date_key, count(*) AS items, sum(price) AS product_sales FROM dw.fact_sales WHERE seller_id = %(seller_id)s AND purchase_date_key BETWEEN %(from_key)s AND %(to_key)s GROUP BY purchase_date_key ORDER BY purchase_date_key",
+      "measurement": {
+        "timings_ms": [
+          1.665,
+          1.508,
+          1.518,
+          1.154,
+          1.327,
+          1.078,
+          0.969
+        ],
+        "row_count": 83,
+        "result_md5": "5b0f0705189cb3352a2667ee11be7252",
+        "warmup_runs": 2,
+        "median_ms": 1.327,
+        "min_ms": 0.969,
+        "max_ms": 1.665
+      },
+      "plan_file": "E2_seller_date_range_composite_seller_date.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 1138.25,
+        "execution_time_ms": 0.486,
+        "planning_time_ms": 0.09,
+        "node_types": [
+          "Aggregate",
+          "Bitmap Heap Scan",
+          "Bitmap Index Scan",
+          "Sort"
+        ],
+        "indexes_used": [
+          "perf_sales_seller_date_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 256,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_sales(seller_id, purchase_date_key) birleşik B-tree",
+      "apply_sql": [
+        "CREATE INDEX perf_sales_seller_date_idx ON dw.fact_sales (seller_id, purchase_date_key)"
+      ],
+      "apply_ms_single_run": 234.715,
+      "index_sizes_bytes": {
+        "dw.perf_sales_seller_date_idx": 4644864
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 12.69,
+      "write_cost": {
+        "table": "dw.fact_sales",
+        "index_ddl": "CREATE INDEX ON {t} (seller_id, purchase_date_key)",
+        "rows_inserted": 112650,
+        "timings_ms": [
+          470.755,
+          452.546,
+          570.788,
+          465.584,
+          461.381
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 465.584,
+        "min_ms": 452.546,
+        "max_ms": 570.788
+      }
+    },
+    {
+      "state": "composite_include_price",
+      "sql": "SELECT purchase_date_key, count(*) AS items, sum(price) AS product_sales FROM dw.fact_sales WHERE seller_id = %(seller_id)s AND purchase_date_key BETWEEN %(from_key)s AND %(to_key)s GROUP BY purchase_date_key ORDER BY purchase_date_key",
+      "measurement": {
+        "timings_ms": [
+          0.878,
+          0.704,
+          0.593,
+          0.658,
+          1.49,
+          1.505,
+          0.739
+        ],
+        "row_count": 83,
+        "result_md5": "5b0f0705189cb3352a2667ee11be7252",
+        "warmup_runs": 2,
+        "median_ms": 0.739,
+        "min_ms": 0.593,
+        "max_ms": 1.505
+      },
+      "plan_file": "E2_seller_date_range_composite_include_price.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 32.35,
+        "execution_time_ms": 0.306,
+        "planning_time_ms": 0.131,
+        "node_types": [
+          "Aggregate",
+          "Index Only Scan"
+        ],
+        "indexes_used": [
+          "perf_sales_seller_date_incl_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 6,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_sales(seller_id, purchase_date_key) INCLUDE (price) (index-only scan adayı)",
+      "apply_sql": [
+        "CREATE INDEX perf_sales_seller_date_incl_idx ON dw.fact_sales (seller_id, purchase_date_key) INCLUDE (price)"
+      ],
+      "apply_ms_single_run": 249.475,
+      "index_sizes_bytes": {
+        "dw.perf_sales_seller_date_incl_idx": 7659520
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 22.78,
+      "write_cost": {
+        "table": "dw.fact_sales",
+        "index_ddl": "CREATE INDEX ON {t} (seller_id, purchase_date_key) INCLUDE (price)",
+        "rows_inserted": 112650,
+        "timings_ms": [
+          517.565,
+          510.205,
+          450.267,
+          470.716,
+          489.41
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 489.41,
+        "min_ms": 450.267,
+        "max_ms": 517.565
+      }
+    }
+  ]
+}

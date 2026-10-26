@@ -1,0 +1,53 @@
+{
+  "database": "olist",
+  "data": "GERÇEK Olist verisi (data/raw)",
+  "mode": "routines",
+  "at_utc": "2026-10-25T13:18:59+00:00",
+  "result": [
+    {
+      "check": "routines_repeat_no_duplication",
+      "purpose": "sp_refresh_reports ×2 ve sp_load_monthly_summary(2017) ×2: monthly_summary satır sayısı = dim_date ay sayısı, içerik değişmez",
+      "expected": {
+        "rows": 27,
+        "content_md5": "2d653b47a4a85a224a852316a6bdb55d"
+      },
+      "actual": {
+        "rows": 27,
+        "content_md5": "2d653b47a4a85a224a852316a6bdb55d"
+      },
+      "status": "geçti"
+    },
+    {
+      "check": "refresh_runs_recorded",
+      "purpose": "Her sp_refresh_reports çağrısı 'succeeded' kaydı bırakır",
+      "expected": 2,
+      "actual": 2,
+      "status": "geçti"
+    },
+    {
+      "check": "materialized_views_populated",
+      "purpose": "Tüm reporting MV'leri doldurulmuş",
+      "expected": [
+        [
+          "mv_category_sales",
+          true
+        ],
+        [
+          "mv_monthly_sales",
+          true
+        ]
+      ],
+      "actual": [
+        [
+          "mv_category_sales",
+          true
+        ],
+        [
+          "mv_monthly_sales",
+          true
+        ]
+      ],
+      "status": "geçti"
+    }
+  ]
+}

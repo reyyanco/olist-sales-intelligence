@@ -1,0 +1,145 @@
+{
+  "id": "E1_customer_history",
+  "title": "Bir kişinin (customer_unique_id) sipariş geçmişi",
+  "technique": "B-tree indeks",
+  "params": {
+    "customer_unique_id": "8d50f5eadf50201ccdcedfb9e2ac8455"
+  },
+  "states": [
+    {
+      "state": "baseline",
+      "sql": "SELECT o.order_id, o.purchase_ts, o.order_status, o.product_value, o.payment_value FROM dw.fact_orders o JOIN dw.dim_customer c ON c.customer_id = o.customer_id WHERE c.customer_unique_id = %(customer_unique_id)s ORDER BY o.purchase_ts, o.order_id",
+      "measurement": {
+        "timings_ms": [
+          12.021,
+          12.244,
+          13.485,
+          12.918,
+          13.654,
+          13.083,
+          11.404
+        ],
+        "row_count": 17,
+        "result_md5": "6eb0466e9242cd812699a823b404e266",
+        "warmup_runs": 2,
+        "median_ms": 12.918,
+        "min_ms": 11.404,
+        "max_ms": 13.654
+      },
+      "plan_file": "E1_customer_history_baseline.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 2887.6,
+        "execution_time_ms": 10.135,
+        "planning_time_ms": 0.246,
+        "node_types": [
+          "Index Scan",
+          "Nested Loop",
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [
+          "fact_orders_customer_id_key"
+        ],
+        "seq_scans": [
+          "dim_customer"
+        ],
+        "shared_hit_blocks": 1518,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "write_cost": {
+        "table": "dw.dim_customer",
+        "index_ddl": null,
+        "rows_inserted": 99441,
+        "timings_ms": [
+          51.383,
+          51.462,
+          49.844,
+          60.937,
+          49.978
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 51.383,
+        "min_ms": 49.844,
+        "max_ms": 60.937
+      }
+    },
+    {
+      "state": "btree_customer_unique_id",
+      "sql": "SELECT o.order_id, o.purchase_ts, o.order_status, o.product_value, o.payment_value FROM dw.fact_orders o JOIN dw.dim_customer c ON c.customer_id = o.customer_id WHERE c.customer_unique_id = %(customer_unique_id)s ORDER BY o.purchase_ts, o.order_id",
+      "measurement": {
+        "timings_ms": [
+          1.255,
+          0.955,
+          0.974,
+          0.811,
+          1.119,
+          0.866,
+          0.915
+        ],
+        "row_count": 17,
+        "result_md5": "6eb0466e9242cd812699a823b404e266",
+        "warmup_runs": 2,
+        "median_ms": 0.955,
+        "min_ms": 0.811,
+        "max_ms": 1.255
+      },
+      "plan_file": "E1_customer_history_btree_customer_unique_id.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 282.78,
+        "execution_time_ms": 0.161,
+        "planning_time_ms": 0.197,
+        "node_types": [
+          "Bitmap Heap Scan",
+          "Bitmap Index Scan",
+          "Index Scan",
+          "Nested Loop",
+          "Sort"
+        ],
+        "indexes_used": [
+          "fact_orders_customer_id_key",
+          "perf_dim_customer_unique_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 88,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "dim_customer(customer_unique_id) B-tree indeksi",
+      "apply_sql": [
+        "CREATE INDEX perf_dim_customer_unique_idx ON dw.dim_customer (customer_unique_id)"
+      ],
+      "apply_ms_single_run": 271.733,
+      "index_sizes_bytes": {
+        "dw.perf_dim_customer_unique_idx": 5742592
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 13.53,
+      "write_cost": {
+        "table": "dw.dim_customer",
+        "index_ddl": "CREATE INDEX ON {t} (customer_unique_id)",
+        "rows_inserted": 99441,
+        "timings_ms": [
+          427.977,
+          469.31,
+          413.176,
+          433.646,
+          421.768
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 427.977,
+        "min_ms": 413.176,
+        "max_ms": 469.31
+      }
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "checked_at_utc": "2026-10-25T14:45Z",
+  "purpose": "Restore the same backup into a NEW, empty PostgreSQL cluster (separate Compose project 'olist-restore-check', separate volume, dashboard port 8503) to test role/privilege re-creation. The main volume was not touched. The project and its volume were removed afterwards.",
+  "backup": {
+    "file": "backups/olist_20261025_174001.dump",
+    "bytes": 74432354,
+    "sha256": "ea282b3383aebcd3662e374ea271d1049745c329076d6f7fe0d7d137aa2bab53"
+  },
+  "roles_in_new_cluster_before_restore": [
+    "olist"
+  ],
+  "steps": [
+    {
+      "step": "COMPOSE_PROJECT_NAME=olist-restore-check ./scripts/up.ps1",
+      "result": "ok; db healthy on an empty volume"
+    },
+    {
+      "step": "./scripts/restore.ps1 -BackupFile backups/olist_20261025_174001.dump -TargetDatabase olist",
+      "result": "ok; target existed and was empty (created by container init); olist_reporting_reader created by the script; 11.5 s"
+    },
+    {
+      "step": "./scripts/etl.ps1 setup-dashboard-role",
+      "result": "ok; olist_dashboard created from .env (password not shown)"
+    },
+    {
+      "step": "./scripts/etl.ps1 verify",
+      "result": "ok; 9/9 sql/tests passed"
+    },
+    {
+      "step": "./scripts/etl.ps1 migrate",
+      "result": "ok; no new SQL file (meta.schema_migrations came with the backup)"
+    },
+    {
+      "step": "./scripts/dashboard.ps1 with DASHBOARD_PORT=8503",
+      "result": "ok; container healthy; /_stcore/health returned ok"
+    },
+    {
+      "step": "python -m dashboard.verify against the restored cluster",
+      "result": "all_match=True, samples=7"
+    },
+    {
+      "step": "docker compose -p olist-restore-check --profile * down --volumes",
+      "result": "ok; olist-sales-intelligence_pgdata still present"
+    }
+  ],
+  "comparison_with_main_database_snapshot": {
+    "business_identical": true,
+    "objects_identical": true,
+    "logs_identical": true,
+    "privileges_identical": true
+  },
+  "restored_privileges": {
+    "reader_usage_dw": false,
+    "reader_role_exists": true,
+    "reader_usage_reporting": true,
+    "reader_select_v_sales_kpis": true,
+    "reader_connect_grant_explicit": true,
+    "reader_execute_fn_overview_kpis": true,
+    "reader_execute_sp_refresh_reports": false
+  },
+  "dashboard_verification": {
+    "all_match": true,
+    "etl_run_id": "1feee717-ec9e-46d8-9995-8b4e0691af1f",
+    "samples": [
+      {
+        "sample": "default_coverage",
+        "page": "page_overview.py",
+        "filters": {},
+        "app": {
+          "Ürün satış tutarı": "13.221.498,11 BRL",
+          "Sipariş sayısı": "96.478",
+          "Müşteri sayısı": "93.358",
+          "Ortalama sepet tutarı": "137,04 BRL"
+        },
+        "direct_sql": {
+          "Ürün satış tutarı": "13.221.498,11 BRL",
+          "Sipariş sayısı": "96.478",
+          "Müşteri sayısı": "93.358",
+          "Ortalama sepet tutarı": "137,04 BRL"
+        },
+        "match": true
+      },
+      {
+        "sample": "category_health_beauty",
+        "page": "page_overview.py",
+        "filters": {
+          "w_categories": [
+            "health_beauty"
+          ]
+        },
+        "app": {
+          "Ürün satış tutarı": "1.233.131,72 BRL",
+          "Sipariş sayısı": "8.647",
+          "Müşteri sayısı": "8.498",
+          "Ortalama sepet tutarı": "142,61 BRL"
+        },
+        "direct_sql": {
+          "Ürün satış tutarı": "1.233.131,72 BRL",
+          "Sipariş sayısı": "8.647",
+          "Müşteri sayısı": "8.498",
+          "Ortalama sepet tutarı": "142,61 BRL"
+        },
+        "match": true
+      },
+      {
+        "sample": "states_SP_RJ_2018H1",
+        "page": "page_overview.py",
+        "filters": {
+          "w_states": [
+            "SP",
+            "RJ"
+          ],
+          "w_dates": [
+            "2018-01-01",
+            "2018-06-30"
+          ]
+        },
+        "app": {
+          "Ürün satış tutarı": "2.894.077,40 BRL",
+          "Sipariş sayısı": "22.379",
+          "Müşteri sayısı": "21.869",
+          "Ortalama sepet tutarı": "129,32 BRL"
+        },
+        "direct_sql": {
+          "Ürün satış tutarı": "2.894.077,40 BRL",
+          "Sipariş sayısı": "22.379",
+          "Müşteri sayısı": "21.869",
+          "Ortalama sepet tutarı": "129,32 BRL"
+        },
+        "match": true
+      },
+      {
+        "sample": "bed_bath_table_MG_2017",
+        "page": "page_overview.py",
+        "filters": {
+          "w_categories": [
+            "bed_bath_table"
+          ],
+          "w_states": [
+            "MG"
+          ],
+          "w_dates": [
+            "2017-01-01",
+            "2017-12-31"
+          ]
+        },
+        "app": {
+          "Ürün satış tutarı": "64.248,01 BRL",
+          "Sipariş sayısı": "565",
+          "Müşteri sayısı": "546",
+          "Ortalama sepet tutarı": "113,71 BRL"
+        },
+        "direct_sql": {
+          "Ürün satış tutarı": "64.248,01 BRL",
+          "Sipariş sayısı": "565",
+          "Müşteri sayısı": "546",
+          "Ortalama sepet tutarı": "113,71 BRL"
+        },
+        "match": true
+      },
+      {
+        "sample": "two_categories_2018_03",
+        "page": "page_overview.py",
+        "filters": {
+          "w_categories": [
+            "health_beauty",
+            "watches_gifts"
+          ],
+          "w_dates": [
+            "2018-03-01",
+            "2018-03-31"
+          ]
+        },
+        "app": {
+          "Ürün satış tutarı": "180.149,75 BRL",
+          "Sipariş sayısı": "1.012",
+          "Müşteri sayısı": "1.007",
+          "Ortalama sepet tutarı": "178,01 BRL"
+        },
+        "direct_sql": {
+          "Ürün satış tutarı": "180.149,75 BRL",
+          "Sipariş sayısı": "1.012",
+          "Müşteri sayısı": "1.007",
+          "Ortalama sepet tutarı": "178,01 BRL"
+        },
+        "match": true
+      },
+      {
+        "sample": "delivery_state_BA_2017",
+        "page": "page_delivery.py",
+        "filters": {
+          "w_states": [
+            "BA"
+          ],
+          "w_dates": [
+            "2017-01-01",
+            "2017-12-31"
+          ]
+        },
+        "app": {
+          "Ortalama teslimat süresi": "19,54 gün",
+          "Geç teslimat oranı": "%10,02",
+          "Ölçülen sipariş": "1.527",
+          "Teslim zamanı boş": "0"
+        },
+        "direct_sql": {
+          "Ortalama teslimat süresi": "19,54 gün",
+          "Geç teslimat oranı": "%10,02",
+          "Ölçülen sipariş": "1.527",
+          "Teslim zamanı boş": "0"
+        },
+        "match": true
+      },
+      {
+        "sample": "customers_2017",
+        "page": "page_customers.py",
+        "filters": {
+          "w_dates": [
+            "2017-01-01",
+            "2017-12-31"
+          ]
+        },
+        "app": {
+          "Müşteri sayısı": "42.136",
+          "Tekrar eden müşteri": "1.170",
+          "Tekrar satın alma oranı": "%2,78"
+        },
+        "direct_sql": {
+          "Müşteri sayısı": "42.136",
+          "Tekrar eden müşteri": "1.170",
+          "Tekrar satın alma oranı": "%2,78"
+        },
+        "match": true
+      }
+    ]
+  }
+}

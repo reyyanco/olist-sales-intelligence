@@ -1,0 +1,58 @@
+{
+  "dropped_indexes": [],
+  "kept_indexes": [
+    {
+      "name": "dw.dim_customer_pkey",
+      "definition": "CREATE UNIQUE INDEX dim_customer_pkey ON dw.dim_customer USING btree (customer_id)"
+    },
+    {
+      "name": "dw.dim_date_full_date_key",
+      "definition": "CREATE UNIQUE INDEX dim_date_full_date_key ON dw.dim_date USING btree (full_date)"
+    },
+    {
+      "name": "dw.dim_date_pkey",
+      "definition": "CREATE UNIQUE INDEX dim_date_pkey ON dw.dim_date USING btree (date_key)"
+    },
+    {
+      "name": "dw.dim_product_pkey",
+      "definition": "CREATE UNIQUE INDEX dim_product_pkey ON dw.dim_product USING btree (product_id)"
+    },
+    {
+      "name": "dw.dim_seller_pkey",
+      "definition": "CREATE UNIQUE INDEX dim_seller_pkey ON dw.dim_seller USING btree (seller_id)"
+    },
+    {
+      "name": "dw.fact_orders_customer_id_key",
+      "definition": "CREATE UNIQUE INDEX fact_orders_customer_id_key ON dw.fact_orders USING btree (customer_id)"
+    },
+    {
+      "name": "dw.fact_orders_order_customer_date_uq",
+      "definition": "CREATE UNIQUE INDEX fact_orders_order_customer_date_uq ON dw.fact_orders USING btree (order_id, customer_id, purchase_date_key)"
+    },
+    {
+      "name": "dw.fact_orders_pkey",
+      "definition": "CREATE UNIQUE INDEX fact_orders_pkey ON dw.fact_orders USING btree (order_id)"
+    },
+    {
+      "name": "dw.fact_payments_pkey",
+      "definition": "CREATE UNIQUE INDEX fact_payments_pkey ON dw.fact_payments USING btree (order_id, payment_sequential)"
+    },
+    {
+      "name": "dw.fact_sales_pkey",
+      "definition": "CREATE UNIQUE INDEX fact_sales_pkey ON dw.fact_sales USING btree (order_id, order_item_id)"
+    },
+    {
+      "name": "reporting.monthly_summary_pkey",
+      "definition": "CREATE UNIQUE INDEX monthly_summary_pkey ON reporting.monthly_summary USING btree (month_start)"
+    },
+    {
+      "name": "reporting.mv_category_sales_label_uq",
+      "definition": "CREATE UNIQUE INDEX mv_category_sales_label_uq ON reporting.mv_category_sales USING btree (category_label)"
+    },
+    {
+      "name": "reporting.mv_monthly_sales_month_uq",
+      "definition": "CREATE UNIQUE INDEX mv_monthly_sales_month_uq ON reporting.mv_monthly_sales USING btree (purchase_month)"
+    }
+  ],
+  "statistics": "VACUUM (ANALYZE) dw tabloları ve reporting MV'leri, deneylerden önce bir kez"
+}

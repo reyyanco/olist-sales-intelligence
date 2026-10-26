@@ -1,0 +1,199 @@
+{
+  "setup_sql": [
+    "CREATE SCHEMA IF NOT EXISTS perf",
+    "DROP TABLE IF EXISTS perf.orders_plain, perf.orders_part CASCADE",
+    "CREATE TABLE perf.orders_plain AS SELECT order_id, order_status, purchase_ts, product_value, payment_value FROM dw.fact_orders",
+    "CREATE TABLE perf.orders_part (order_id text, order_status text, purchase_ts timestamp NOT NULL, product_value numeric(12,2), payment_value numeric(12,2)) PARTITION BY RANGE (purchase_ts)",
+    "CREATE TABLE perf.orders_part_2016 PARTITION OF perf.orders_part FOR VALUES FROM ('2016-01-01') TO ('2017-01-01')",
+    "CREATE TABLE perf.orders_part_2017 PARTITION OF perf.orders_part FOR VALUES FROM ('2017-01-01') TO ('2018-01-01')",
+    "CREATE TABLE perf.orders_part_2018 PARTITION OF perf.orders_part FOR VALUES FROM ('2018-01-01') TO ('2019-01-01')",
+    "CREATE TABLE perf.orders_part_default PARTITION OF perf.orders_part DEFAULT",
+    "INSERT INTO perf.orders_part SELECT * FROM perf.orders_plain",
+    "ANALYZE perf.orders_plain",
+    "ANALYZE perf.orders_part"
+  ],
+  "row_counts": {
+    "perf.orders_plain": 99441,
+    "perf.orders_part": 99441,
+    "perf.orders_part_2016": 329,
+    "perf.orders_part_2017": 45101,
+    "perf.orders_part_2018": 54011,
+    "perf.orders_part_default": 0
+  },
+  "queries": {
+    "one_month": {
+      "params": {
+        "from": "2018-03-01",
+        "to": "2018-04-01"
+      },
+      "plain": {
+        "sql": "SELECT order_status, count(*), sum(product_value) FROM perf.orders_plain WHERE purchase_ts >= %(from)s AND purchase_ts < %(to)s GROUP BY order_status ORDER BY order_status",
+        "measurement": {
+          "timings_ms": [
+            16.368,
+            13.789,
+            12.361,
+            11.343,
+            11.547,
+            11.728,
+            13.887
+          ],
+          "row_count": 6,
+          "result_md5": "6eb67c7d6e309ff0217ddd4a8dfa6227",
+          "warmup_runs": 2,
+          "median_ms": 12.361,
+          "min_ms": 11.343,
+          "max_ms": 16.368
+        },
+        "plan_file": "P1_one_month_plain.json",
+        "plan": {
+          "total_cost_estimate": 2826.21,
+          "execution_time_ms": 11.831,
+          "planning_time_ms": 0.109,
+          "node_types": [
+            "Aggregate",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "orders_plain"
+          ],
+          "shared_hit_blocks": 1280,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "partitioned": {
+        "sql": "SELECT order_status, count(*), sum(product_value) FROM perf.orders_part WHERE purchase_ts >= %(from)s AND purchase_ts < %(to)s GROUP BY order_status ORDER BY order_status",
+        "measurement": {
+          "timings_ms": [
+            8.143,
+            7.536,
+            11.057,
+            8.026,
+            9.178,
+            7.301,
+            7.549
+          ],
+          "row_count": 6,
+          "result_md5": "6eb67c7d6e309ff0217ddd4a8dfa6227",
+          "warmup_runs": 2,
+          "median_ms": 8.026,
+          "min_ms": 7.301,
+          "max_ms": 11.057
+        },
+        "plan_file": "P1_one_month_partitioned.json",
+        "plan": {
+          "total_cost_estimate": 1530.72,
+          "execution_time_ms": 7.999,
+          "planning_time_ms": 0.195,
+          "node_types": [
+            "Aggregate",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "orders_part_2018"
+          ],
+          "shared_hit_blocks": 667,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "result_equal": true,
+      "median_speedup": 1.54
+    },
+    "all_rows": {
+      "params": {},
+      "plain": {
+        "sql": "SELECT order_status, count(*), sum(product_value) FROM perf.orders_plain GROUP BY order_status ORDER BY order_status",
+        "measurement": {
+          "timings_ms": [
+            28.742,
+            28.163,
+            32.324,
+            31.062,
+            29.803,
+            29.132,
+            29.971
+          ],
+          "row_count": 8,
+          "result_md5": "f1b53df5ed63fe91103054ccde80383b",
+          "warmup_runs": 2,
+          "median_ms": 29.803,
+          "min_ms": 28.163,
+          "max_ms": 32.324
+        },
+        "plan_file": "P1_all_rows_plain.json",
+        "plan": {
+          "total_cost_estimate": 3020.46,
+          "execution_time_ms": 36.414,
+          "planning_time_ms": 0.095,
+          "node_types": [
+            "Aggregate",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "orders_plain"
+          ],
+          "shared_hit_blocks": 1280,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "partitioned": {
+        "sql": "SELECT order_status, count(*), sum(product_value) FROM perf.orders_part GROUP BY order_status ORDER BY order_status",
+        "measurement": {
+          "timings_ms": [
+            39.442,
+            35.611,
+            38.306,
+            37.965,
+            32.564,
+            34.653,
+            36.808
+          ],
+          "row_count": 8,
+          "result_md5": "f1b53df5ed63fe91103054ccde80383b",
+          "warmup_runs": 2,
+          "median_ms": 36.808,
+          "min_ms": 32.564,
+          "max_ms": 39.442
+        },
+        "plan_file": "P1_all_rows_partitioned.json",
+        "plan": {
+          "total_cost_estimate": 3333.94,
+          "execution_time_ms": 43.003,
+          "planning_time_ms": 0.151,
+          "node_types": [
+            "Aggregate",
+            "Append",
+            "Gather Merge",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "orders_part_2016",
+            "orders_part_2017",
+            "orders_part_2018",
+            "orders_part_default"
+          ],
+          "shared_hit_blocks": 1245,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "result_equal": true,
+      "median_speedup": 0.81
+    }
+  }
+}

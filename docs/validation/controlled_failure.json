@@ -1,0 +1,23 @@
+{
+  "database": "olist",
+  "data": "GERÇEK Olist verisi (data/raw)",
+  "mode": "controlled-failure",
+  "at_utc": "2026-10-25T13:20:26+00:00",
+  "result": [
+    {
+      "check": "failed_load_keeps_previous_data",
+      "purpose": "Gerçek veriyle tam yeniden yükleme, son kalite kontrolünde bilerek başarısız olur: dw/raporlar değişmemeli, çalışma 'failed' kaydedilmeli",
+      "expected": {
+        "raised": true,
+        "snapshot_unchanged": true,
+        "run_status": "failed"
+      },
+      "actual": {
+        "raised": true,
+        "snapshot_unchanged": true,
+        "run_status": "failed"
+      },
+      "status": "geçti"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# İsteğe bağlı: PostgreSQL'i yalnızca bu bilgisayardan (127.0.0.1) erişilebilir yapar.
+# Örneğin bir SQL istemcisiyle bağlanmak için:
+#   docker compose -f compose.yaml -f compose.db-port.yaml up -d --wait db
+services:
+  db:
+    ports:
+      - "127.0.0.1:${POSTGRES_HOST_PORT:-5432}:5432"

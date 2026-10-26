@@ -1,0 +1,44 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Function Scan",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Function Name": "fn_customer_rfm",
+      "Alias": "fn_customer_rfm",
+      "Startup Cost": 0.25,
+      "Total Cost": 10.25,
+      "Plan Rows": 1000,
+      "Plan Width": 150,
+      "Actual Startup Time": 1405.92,
+      "Actual Total Time": 1416.121,
+      "Actual Rows": 93358,
+      "Actual Loops": 1,
+      "Shared Hit Blocks": 4016,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 7989,
+      "Temp Written Blocks": 7292
+    },
+    "Planning": {
+      "Shared Hit Blocks": 0,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 0.075,
+    "Triggers": [],
+    "Execution Time": 1423.207
+  }
+]

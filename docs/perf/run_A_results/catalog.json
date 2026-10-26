@@ -1,0 +1,253 @@
+{
+  "kpis": {
+    "sql": "SELECT * FROM reporting.v_sales_kpis",
+    "measurement": {
+      "timings_ms": [
+        282.644,
+        246.758,
+        246.072,
+        273.553,
+        241.699,
+        286.697,
+        269.299
+      ],
+      "row_count": 1,
+      "result_md5": "2982ee91167630312318f83945d2fa2f",
+      "warmup_runs": 2,
+      "median_ms": 269.299,
+      "min_ms": 241.699,
+      "max_ms": 286.697
+    },
+    "plan_file": "catalog_kpis.json",
+    "plan_analyzed": true,
+    "plan": {
+      "total_cost_estimate": 28554.77,
+      "execution_time_ms": 304.79,
+      "planning_time_ms": 0.769,
+      "node_types": [
+        "Aggregate",
+        "CTE Scan",
+        "Gather",
+        "Hash",
+        "Hash Join",
+        "Seq Scan"
+      ],
+      "indexes_used": [],
+      "seq_scans": [
+        "dim_customer",
+        "fact_orders"
+      ],
+      "shared_hit_blocks": 8035,
+      "shared_read_blocks": 0,
+      "temp_written_blocks": 612,
+      "jit": false
+    }
+  },
+  "monthly_growth": {
+    "sql": "SELECT * FROM reporting.v_monthly_sales_growth ORDER BY month_start",
+    "measurement": {
+      "timings_ms": [
+        364.241,
+        383.539,
+        350.385,
+        338.404,
+        359.857,
+        346.649,
+        341.657
+      ],
+      "row_count": 27,
+      "result_md5": "5ba0d29cb7c8b435c0eeb1a4cef85b5f",
+      "warmup_runs": 2,
+      "median_ms": 350.385,
+      "min_ms": 338.404,
+      "max_ms": 383.539
+    },
+    "plan_file": "catalog_monthly_growth.json",
+    "plan_analyzed": true,
+    "plan": {
+      "total_cost_estimate": 31391.61,
+      "execution_time_ms": 416.757,
+      "planning_time_ms": 0.77,
+      "node_types": [
+        "Aggregate",
+        "Hash",
+        "Hash Join",
+        "Merge Join",
+        "Seq Scan",
+        "Sort",
+        "Subquery Scan",
+        "WindowAgg"
+      ],
+      "indexes_used": [],
+      "seq_scans": [
+        "dim_customer",
+        "dim_date",
+        "fact_orders"
+      ],
+      "shared_hit_blocks": 4022,
+      "shared_read_blocks": 0,
+      "temp_written_blocks": 1900,
+      "jit": false
+    }
+  },
+  "monthly_mv": {
+    "sql": "SELECT * FROM reporting.mv_monthly_sales ORDER BY purchase_month",
+    "measurement": {
+      "timings_ms": [
+        0.368,
+        0.342,
+        0.341,
+        0.384,
+        0.475,
+        0.577,
+        0.578
+      ],
+      "row_count": 23,
+      "result_md5": "658c6a223eca6790f83331490298a0f7",
+      "warmup_runs": 2,
+      "median_ms": 0.384,
+      "min_ms": 0.341,
+      "max_ms": 0.578
+    },
+    "plan_file": "catalog_monthly_mv.json",
+    "plan_analyzed": true,
+    "plan": {
+      "total_cost_estimate": 1.81,
+      "execution_time_ms": 0.022,
+      "planning_time_ms": 0.039,
+      "node_types": [
+        "Seq Scan",
+        "Sort"
+      ],
+      "indexes_used": [],
+      "seq_scans": [
+        "mv_monthly_sales"
+      ],
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "temp_written_blocks": 0,
+      "jit": false
+    }
+  },
+  "delivery_rollup": {
+    "sql": "SELECT * FROM reporting.v_delivery_performance ORDER BY purchase_year NULLS LAST, purchase_month NULLS LAST",
+    "measurement": {
+      "timings_ms": [
+        266.753,
+        239.426,
+        251.379,
+        240.919,
+        288.953,
+        237.015,
+        231.199
+      ],
+      "row_count": 27,
+      "result_md5": "d2dff7532704fd047038d5258e1516c2",
+      "warmup_runs": 2,
+      "median_ms": 240.919,
+      "min_ms": 231.199,
+      "max_ms": 288.953
+    },
+    "plan_file": "catalog_delivery_rollup.json",
+    "plan_analyzed": true,
+    "plan": {
+      "total_cost_estimate": 30911.92,
+      "execution_time_ms": 274.436,
+      "planning_time_ms": 0.637,
+      "node_types": [
+        "Aggregate",
+        "Hash",
+        "Hash Join",
+        "Seq Scan",
+        "Sort"
+      ],
+      "indexes_used": [],
+      "seq_scans": [
+        "dim_customer",
+        "fact_orders"
+      ],
+      "shared_hit_blocks": 4016,
+      "shared_read_blocks": 0,
+      "temp_written_blocks": 403,
+      "jit": false
+    }
+  },
+  "repeat_purchase": {
+    "sql": "SELECT * FROM reporting.v_repeat_purchase ORDER BY cohort_month NULLS LAST",
+    "measurement": {
+      "timed_out": true,
+      "timeout_ms": 60000,
+      "phase": "warmup",
+      "completed_runs_ms": []
+    },
+    "plan_file": "catalog_repeat_purchase.json",
+    "plan_analyzed": false,
+    "plan": {
+      "total_cost_estimate": 251814014.41,
+      "execution_time_ms": null,
+      "planning_time_ms": null,
+      "node_types": [
+        "Aggregate",
+        "Gather Merge",
+        "Hash",
+        "Hash Join",
+        "Index Scan",
+        "Nested Loop",
+        "Seq Scan",
+        "Sort",
+        "Subquery Scan",
+        "Unique"
+      ],
+      "indexes_used": [
+        "fact_orders_customer_id_key"
+      ],
+      "seq_scans": [
+        "dim_customer",
+        "fact_orders"
+      ],
+      "shared_hit_blocks": null,
+      "shared_read_blocks": null,
+      "temp_written_blocks": null,
+      "jit": true
+    }
+  },
+  "category_mv": {
+    "sql": "SELECT * FROM reporting.mv_category_sales ORDER BY sales_rank",
+    "measurement": {
+      "timings_ms": [
+        0.601,
+        0.89,
+        0.512,
+        0.421,
+        0.449,
+        0.424,
+        0.59
+      ],
+      "row_count": 74,
+      "result_md5": "8f776efff423c625e12021349771a545",
+      "warmup_runs": 2,
+      "median_ms": 0.512,
+      "min_ms": 0.421,
+      "max_ms": 0.89
+    },
+    "plan_file": "catalog_category_mv.json",
+    "plan_analyzed": true,
+    "plan": {
+      "total_cost_estimate": 4.22,
+      "execution_time_ms": 0.077,
+      "planning_time_ms": 0.078,
+      "node_types": [
+        "Seq Scan",
+        "Sort"
+      ],
+      "indexes_used": [],
+      "seq_scans": [
+        "mv_category_sales"
+      ],
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "temp_written_blocks": 0,
+      "jit": false
+    }
+  }
+}

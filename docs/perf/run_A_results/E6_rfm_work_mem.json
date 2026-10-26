@@ -1,0 +1,93 @@
+{
+  "id": "E6_rfm_work_mem",
+  "title": "RFM: reporting.fn_customer_rfm(as_of)",
+  "technique": "oturum work_mem (planda diske taşma için)",
+  "params": {
+    "as_of": "2018-08-30"
+  },
+  "states": [
+    {
+      "state": "baseline",
+      "sql": "SELECT * FROM reporting.fn_customer_rfm(%(as_of)s)",
+      "measurement": {
+        "timings_ms": [
+          1587.083,
+          1732.784,
+          1598.913,
+          1717.285,
+          1730.842,
+          1742.715,
+          1761.3
+        ],
+        "row_count": 93358,
+        "result_md5": "571f1617dd0a0db5cc79b108765354cf",
+        "warmup_runs": 2,
+        "median_ms": 1730.842,
+        "min_ms": 1587.083,
+        "max_ms": 1761.3
+      },
+      "plan_file": "E6_rfm_work_mem_baseline.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 10.25,
+        "execution_time_ms": 1575.754,
+        "planning_time_ms": 0.045,
+        "node_types": [
+          "Function Scan"
+        ],
+        "indexes_used": [],
+        "seq_scans": [],
+        "shared_hit_blocks": 4016,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 7292,
+        "jit": false
+      }
+    },
+    {
+      "state": "work_mem_64mb",
+      "sql": "SELECT * FROM reporting.fn_customer_rfm(%(as_of)s)",
+      "measurement": {
+        "timings_ms": [
+          1662.917,
+          1666.164,
+          1686.318,
+          1637.638,
+          1623.924,
+          1688.39,
+          1757.978
+        ],
+        "row_count": 93358,
+        "result_md5": "571f1617dd0a0db5cc79b108765354cf",
+        "warmup_runs": 2,
+        "median_ms": 1666.164,
+        "min_ms": 1623.924,
+        "max_ms": 1757.978
+      },
+      "plan_file": "E6_rfm_work_mem_work_mem_64mb.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 10.25,
+        "execution_time_ms": 1441.015,
+        "planning_time_ms": 0.035,
+        "node_types": [
+          "Function Scan"
+        ],
+        "indexes_used": [],
+        "seq_scans": [],
+        "shared_hit_blocks": 4016,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "SET work_mem = '64MB' (yalnız bu oturum)",
+      "apply_sql": [
+        "SET work_mem = '64MB'"
+      ],
+      "apply_ms_single_run": 0.341,
+      "index_sizes_bytes": {},
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 1.04
+    }
+  ]
+}

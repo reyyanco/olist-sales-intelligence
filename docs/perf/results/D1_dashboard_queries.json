@@ -1,0 +1,1531 @@
+{
+  "queries": [
+    "overview_full",
+    "overview_one_month",
+    "overview_states_SP_RJ_full",
+    "overview_category_full",
+    "monthly_full",
+    "monthly_state_RJ",
+    "category_full",
+    "category_one_month",
+    "delivery_region_full",
+    "delivery_region_one_month",
+    "delivery_monthly_full",
+    "repeat_full",
+    "repeat_one_month",
+    "rfm_segments"
+  ],
+  "states": {
+    "no_extra_indexes": {
+      "overview_full": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, NULL, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            574.572,
+            586.525,
+            570.387,
+            566.901,
+            580.019,
+            565.244,
+            574.107
+          ],
+          "row_count": 1,
+          "result_md5": "f43feede019fd8330e9310cf5a21e69b",
+          "warmup_runs": 2,
+          "median_ms": 574.107,
+          "min_ms": 565.244,
+          "max_ms": 586.525
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 37491.7,
+          "execution_time_ms": 610.048,
+          "planning_time_ms": 1.139,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 2755,
+          "jit": false
+        }
+      },
+      "overview_one_month": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, NULL, NULL)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            123.389,
+            122.025,
+            127.451,
+            127.634,
+            125.129,
+            122.481,
+            123.284
+          ],
+          "row_count": 1,
+          "result_md5": "873c83d604db8a36c2b5ee58e22c600e",
+          "warmup_runs": 2,
+          "median_ms": 123.389,
+          "min_ms": 122.025,
+          "max_ms": 127.634
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_one_month_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 19577.48,
+          "execution_time_ms": 134.994,
+          "planning_time_ms": 1.06,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "overview_states_SP_RJ_full": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, ARRAY['SP','RJ'], NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            362.234,
+            354.809,
+            354.123,
+            375.006,
+            357.657,
+            370.963,
+            368.176
+          ],
+          "row_count": 1,
+          "result_md5": "a338ed3d627cc386fd0288d4ab7032a3",
+          "warmup_runs": 2,
+          "median_ms": 362.234,
+          "min_ms": 354.123,
+          "max_ms": 375.006
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_states_SP_RJ_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 24980.35,
+          "execution_time_ms": 380.369,
+          "planning_time_ms": 1.341,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 889,
+          "jit": false
+        }
+      },
+      "overview_category_full": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, NULL, ARRAY['health_beauty'])",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            171.951,
+            171.489,
+            175.866,
+            181.652,
+            170.703,
+            171.013,
+            170.878
+          ],
+          "row_count": 1,
+          "result_md5": "0bcc1ddcc50e2073ffbe092678047d6b",
+          "warmup_runs": 2,
+          "median_ms": 171.489,
+          "min_ms": 170.703,
+          "max_ms": 181.652
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_category_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 16451.45,
+          "execution_time_ms": 185.373,
+          "planning_time_ms": 0.984,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Index Scan",
+            "Nested Loop",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [
+            "fact_orders_pkey"
+          ],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 43481,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "monthly_full": {
+        "sql": "SELECT * FROM reporting.fn_monthly_sales(%(f)s, %(t)s, NULL, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            583.089,
+            598.103,
+            636.32,
+            622.708,
+            594.115,
+            612.755,
+            568.41
+          ],
+          "row_count": 24,
+          "result_md5": "e7f35f0702a35d73196ed0a157122e9a",
+          "warmup_runs": 2,
+          "median_ms": 598.103,
+          "min_ms": 568.41,
+          "max_ms": 636.32
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_monthly_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 78191.33,
+          "execution_time_ms": 621.471,
+          "planning_time_ms": 1.793,
+          "node_types": [
+            "Aggregate",
+            "CTE Scan",
+            "Hash",
+            "Hash Join",
+            "Merge Join",
+            "Nested Loop",
+            "ProjectSet",
+            "Result",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 11383,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 3316,
+          "jit": false
+        }
+      },
+      "monthly_state_RJ": {
+        "sql": "SELECT * FROM reporting.fn_monthly_sales(%(f)s, %(t)s, ARRAY['RJ'], NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            178.298,
+            176.703,
+            177.137,
+            174.613,
+            174.585,
+            176.281,
+            171.873
+          ],
+          "row_count": 24,
+          "result_md5": "d4be563f89470537ddab4d5fbc13b619",
+          "warmup_runs": 2,
+          "median_ms": 176.281,
+          "min_ms": 171.873,
+          "max_ms": 178.298
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_monthly_state_RJ_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 29233.49,
+          "execution_time_ms": 206.873,
+          "planning_time_ms": 1.969,
+          "node_types": [
+            "Aggregate",
+            "CTE Scan",
+            "Hash",
+            "Hash Join",
+            "Merge Join",
+            "Nested Loop",
+            "ProjectSet",
+            "Result",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 11383,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "category_full": {
+        "sql": "SELECT * FROM reporting.fn_category_sales(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            454.123,
+            454.817,
+            481.112,
+            459.965,
+            457.132,
+            463.504,
+            455.72
+          ],
+          "row_count": 74,
+          "result_md5": "8f776efff423c625e12021349771a545",
+          "warmup_runs": 2,
+          "median_ms": 457.132,
+          "min_ms": 454.123,
+          "max_ms": 481.112
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_category_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 31860.48,
+          "execution_time_ms": 499.412,
+          "planning_time_ms": 1.444,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 859,
+          "jit": false
+        }
+      },
+      "category_one_month": {
+        "sql": "SELECT * FROM reporting.fn_category_sales(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            126.554,
+            127.539,
+            129.645,
+            128.817,
+            127.084,
+            126.091,
+            128.547
+          ],
+          "row_count": 67,
+          "result_md5": "dd3a43ba4c4a2054dd9dc3197ef3c2c4",
+          "warmup_runs": 2,
+          "median_ms": 127.539,
+          "min_ms": 126.091,
+          "max_ms": 129.645
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_category_one_month_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 17337.42,
+          "execution_time_ms": 144.256,
+          "planning_time_ms": 0.852,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "delivery_region_full": {
+        "sql": "SELECT * FROM reporting.fn_delivery_by_region(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            189.279,
+            188.09,
+            200.322,
+            193.188,
+            185.616,
+            190.332,
+            191.982
+          ],
+          "row_count": 33,
+          "result_md5": "785e6b4718e685f6aa207e386e9885b0",
+          "warmup_runs": 2,
+          "median_ms": 190.332,
+          "min_ms": 185.616,
+          "max_ms": 200.322
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_delivery_region_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 14765.61,
+          "execution_time_ms": 206.09,
+          "planning_time_ms": 1.102,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders",
+            "state_region"
+          ],
+          "shared_hit_blocks": 4017,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "delivery_region_one_month": {
+        "sql": "SELECT * FROM reporting.fn_delivery_by_region(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            75.507,
+            78.089,
+            77.781,
+            74.741,
+            75.914,
+            76.214,
+            76.836
+          ],
+          "row_count": 33,
+          "result_md5": "5df9680c70893d8ef3f73ebb6ebc765c",
+          "warmup_runs": 2,
+          "median_ms": 76.214,
+          "min_ms": 74.741,
+          "max_ms": 78.089
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_delivery_region_one_month_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 10020.35,
+          "execution_time_ms": 85.948,
+          "planning_time_ms": 1.075,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders",
+            "state_region"
+          ],
+          "shared_hit_blocks": 4017,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "delivery_monthly_full": {
+        "sql": "SELECT * FROM reporting.fn_delivery_monthly(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            177.446,
+            176.496,
+            177.698,
+            180.205,
+            182.118,
+            177.24,
+            175.358
+          ],
+          "row_count": 23,
+          "result_md5": "57f66f6db3faaf6ac578889c6baedce9",
+          "warmup_runs": 2,
+          "median_ms": 177.446,
+          "min_ms": 175.358,
+          "max_ms": 182.118
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_delivery_monthly_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 25134.84,
+          "execution_time_ms": 204.546,
+          "planning_time_ms": 0.402,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders"
+          ],
+          "shared_hit_blocks": 4016,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 403,
+          "jit": false
+        }
+      },
+      "repeat_full": {
+        "sql": "SELECT * FROM reporting.fn_repeat_purchase(%(f)s, %(t)s)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            336.44,
+            322.916,
+            329.752,
+            324.911,
+            326.778,
+            328.395,
+            327.108
+          ],
+          "row_count": 1,
+          "result_md5": "933def64b04116483ff4ba76b8ba2cf3",
+          "warmup_runs": 2,
+          "median_ms": 327.108,
+          "min_ms": 322.916,
+          "max_ms": 336.44
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_repeat_full_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 29956.21,
+          "execution_time_ms": 350.526,
+          "planning_time_ms": 0.409,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders"
+          ],
+          "shared_hit_blocks": 4016,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 1942,
+          "jit": false
+        }
+      },
+      "repeat_one_month": {
+        "sql": "SELECT * FROM reporting.fn_repeat_purchase(%(f)s, %(t)s)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            78.604,
+            78.551,
+            77.958,
+            80.002,
+            82.324,
+            79.544,
+            81.109
+          ],
+          "row_count": 1,
+          "result_md5": "4ee0b30b14c4d85852b3793af56608bf",
+          "warmup_runs": 2,
+          "median_ms": 79.544,
+          "min_ms": 77.958,
+          "max_ms": 82.324
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_repeat_one_month_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 9701.1,
+          "execution_time_ms": 84.066,
+          "planning_time_ms": 1.022,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders"
+          ],
+          "shared_hit_blocks": 4016,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "rfm_segments": {
+        "sql": "SELECT * FROM reporting.fn_rfm_segments(%(t)s::date + 1)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            1025.549,
+            976.444,
+            1119.147,
+            1009.497,
+            1112.311,
+            1088.928,
+            1064.389
+          ],
+          "row_count": 8,
+          "result_md5": "fce285a0868a95e414d88ac3a9838b9d",
+          "warmup_runs": 2,
+          "median_ms": 1064.389,
+          "min_ms": 976.444,
+          "max_ms": 1119.147
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_rfm_segments_no_extra_indexes.json",
+        "plan": {
+          "total_cost_estimate": 36.89,
+          "execution_time_ms": 1050.336,
+          "planning_time_ms": 0.22,
+          "node_types": [
+            "Aggregate",
+            "Function Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [],
+          "shared_hit_blocks": 4016,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 7292,
+          "jit": false
+        }
+      }
+    },
+    "model_indexes": {
+      "overview_full": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, NULL, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            575.663,
+            549.541,
+            576.209,
+            583.034,
+            569.682,
+            555.939,
+            569.586
+          ],
+          "row_count": 1,
+          "result_md5": "f43feede019fd8330e9310cf5a21e69b",
+          "warmup_runs": 2,
+          "median_ms": 569.682,
+          "min_ms": 549.541,
+          "max_ms": 583.034
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 37372.77,
+          "execution_time_ms": 604.018,
+          "planning_time_ms": 1.108,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 2755,
+          "jit": false
+        }
+      },
+      "overview_one_month": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, NULL, NULL)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            68.445,
+            69.363,
+            69.785,
+            67.508,
+            69.163,
+            68.468,
+            78.129
+          ],
+          "row_count": 1,
+          "result_md5": "873c83d604db8a36c2b5ee58e22c600e",
+          "warmup_runs": 2,
+          "median_ms": 69.163,
+          "min_ms": 67.508,
+          "max_ms": 78.129
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_one_month_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 15988.71,
+          "execution_time_ms": 84.686,
+          "planning_time_ms": 0.667,
+          "node_types": [
+            "Aggregate",
+            "Bitmap Heap Scan",
+            "Bitmap Index Scan",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [
+            "fact_sales_purchase_date_idx"
+          ],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders"
+          ],
+          "shared_hit_blocks": 7187,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "overview_states_SP_RJ_full": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, ARRAY['SP','RJ'], NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            343.084,
+            359.714,
+            341.319,
+            353.861,
+            346.443,
+            347.9,
+            349.107
+          ],
+          "row_count": 1,
+          "result_md5": "a338ed3d627cc386fd0288d4ab7032a3",
+          "warmup_runs": 2,
+          "median_ms": 347.9,
+          "min_ms": 341.319,
+          "max_ms": 359.714
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_states_SP_RJ_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 24926.12,
+          "execution_time_ms": 383.27,
+          "planning_time_ms": 1.251,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 889,
+          "jit": false
+        }
+      },
+      "overview_category_full": {
+        "sql": "SELECT * FROM reporting.fn_overview_kpis(%(f)s, %(t)s, NULL, ARRAY['health_beauty'])",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            171.742,
+            177.803,
+            181.612,
+            173.019,
+            174.463,
+            171.64,
+            175.516
+          ],
+          "row_count": 1,
+          "result_md5": "0bcc1ddcc50e2073ffbe092678047d6b",
+          "warmup_runs": 2,
+          "median_ms": 174.463,
+          "min_ms": 171.64,
+          "max_ms": 181.612
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_overview_category_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 16421.42,
+          "execution_time_ms": 196.05,
+          "planning_time_ms": 1.567,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Index Scan",
+            "Nested Loop",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [
+            "fact_orders_pkey"
+          ],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 43481,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "monthly_full": {
+        "sql": "SELECT * FROM reporting.fn_monthly_sales(%(f)s, %(t)s, NULL, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            584.773,
+            584.553,
+            576.345,
+            576.591,
+            576.128,
+            581.09,
+            581.093
+          ],
+          "row_count": 24,
+          "result_md5": "e7f35f0702a35d73196ed0a157122e9a",
+          "warmup_runs": 2,
+          "median_ms": 581.09,
+          "min_ms": 576.128,
+          "max_ms": 584.773
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_monthly_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 78191.33,
+          "execution_time_ms": 622.746,
+          "planning_time_ms": 1.465,
+          "node_types": [
+            "Aggregate",
+            "CTE Scan",
+            "Hash",
+            "Hash Join",
+            "Merge Join",
+            "Nested Loop",
+            "ProjectSet",
+            "Result",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 11383,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 3316,
+          "jit": false
+        }
+      },
+      "monthly_state_RJ": {
+        "sql": "SELECT * FROM reporting.fn_monthly_sales(%(f)s, %(t)s, ARRAY['RJ'], NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            228.769,
+            215.428,
+            209.238,
+            217.534,
+            199.304,
+            203.649,
+            196.944
+          ],
+          "row_count": 24,
+          "result_md5": "d4be563f89470537ddab4d5fbc13b619",
+          "warmup_runs": 2,
+          "median_ms": 209.238,
+          "min_ms": 196.944,
+          "max_ms": 228.769
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_monthly_state_RJ_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 29233.49,
+          "execution_time_ms": 209.007,
+          "planning_time_ms": 1.127,
+          "node_types": [
+            "Aggregate",
+            "CTE Scan",
+            "Hash",
+            "Hash Join",
+            "Merge Join",
+            "Nested Loop",
+            "ProjectSet",
+            "Result",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 11383,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "category_full": {
+        "sql": "SELECT * FROM reporting.fn_category_sales(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            461.872,
+            463.381,
+            487.17,
+            470.367,
+            463.918,
+            463.949,
+            462.271
+          ],
+          "row_count": 74,
+          "result_md5": "8f776efff423c625e12021349771a545",
+          "warmup_runs": 2,
+          "median_ms": 463.918,
+          "min_ms": 461.872,
+          "max_ms": 487.17
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_category_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 31764.56,
+          "execution_time_ms": 492.676,
+          "planning_time_ms": 1.964,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders",
+            "fact_sales"
+          ],
+          "shared_hit_blocks": 7367,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 859,
+          "jit": false
+        }
+      },
+      "category_one_month": {
+        "sql": "SELECT * FROM reporting.fn_category_sales(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            72.063,
+            73.066,
+            74.128,
+            70.871,
+            71.31,
+            70.887,
+            70.704
+          ],
+          "row_count": 67,
+          "result_md5": "dd3a43ba4c4a2054dd9dc3197ef3c2c4",
+          "warmup_runs": 2,
+          "median_ms": 71.31,
+          "min_ms": 70.704,
+          "max_ms": 74.128
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_category_one_month_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 13748.64,
+          "execution_time_ms": 82.802,
+          "planning_time_ms": 1.134,
+          "node_types": [
+            "Aggregate",
+            "Bitmap Heap Scan",
+            "Bitmap Index Scan",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan",
+            "WindowAgg"
+          ],
+          "indexes_used": [
+            "fact_sales_purchase_date_idx"
+          ],
+          "seq_scans": [
+            "dim_customer",
+            "dim_product",
+            "fact_orders"
+          ],
+          "shared_hit_blocks": 7187,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "delivery_region_full": {
+        "sql": "SELECT * FROM reporting.fn_delivery_by_region(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            189.199,
+            189.527,
+            195.59,
+            192.068,
+            188.384,
+            187.799,
+            192.693
+          ],
+          "row_count": 33,
+          "result_md5": "785e6b4718e685f6aa207e386e9885b0",
+          "warmup_runs": 2,
+          "median_ms": 189.527,
+          "min_ms": 187.799,
+          "max_ms": 195.59
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_delivery_region_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 14765.86,
+          "execution_time_ms": 214.434,
+          "planning_time_ms": 0.657,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders",
+            "state_region"
+          ],
+          "shared_hit_blocks": 4017,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "delivery_region_one_month": {
+        "sql": "SELECT * FROM reporting.fn_delivery_by_region(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            24.26,
+            24.453,
+            24.676,
+            25.304,
+            23.92,
+            23.703,
+            25.876
+          ],
+          "row_count": 33,
+          "result_md5": "5df9680c70893d8ef3f73ebb6ebc765c",
+          "warmup_runs": 2,
+          "median_ms": 24.453,
+          "min_ms": 23.703,
+          "max_ms": 25.876
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_delivery_region_one_month_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 6627.33,
+          "execution_time_ms": 30.677,
+          "planning_time_ms": 0.734,
+          "node_types": [
+            "Aggregate",
+            "Bitmap Heap Scan",
+            "Bitmap Index Scan",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort",
+            "Subquery Scan"
+          ],
+          "indexes_used": [
+            "fact_orders_purchase_date_idx"
+          ],
+          "seq_scans": [
+            "dim_customer",
+            "state_region"
+          ],
+          "shared_hit_blocks": 3884,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "delivery_monthly_full": {
+        "sql": "SELECT * FROM reporting.fn_delivery_monthly(%(f)s, %(t)s, NULL)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            185.89,
+            180.295,
+            183.838,
+            181.294,
+            181.006,
+            184.002,
+            180.033
+          ],
+          "row_count": 23,
+          "result_md5": "57f66f6db3faaf6ac578889c6baedce9",
+          "warmup_runs": 2,
+          "median_ms": 181.294,
+          "min_ms": 180.033,
+          "max_ms": 185.89
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_delivery_monthly_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 25135.72,
+          "execution_time_ms": 203.244,
+          "planning_time_ms": 1.133,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders"
+          ],
+          "shared_hit_blocks": 4016,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 403,
+          "jit": false
+        }
+      },
+      "repeat_full": {
+        "sql": "SELECT * FROM reporting.fn_repeat_purchase(%(f)s, %(t)s)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            325.109,
+            322.024,
+            333.973,
+            318.221,
+            325.4,
+            328.793,
+            323.007
+          ],
+          "row_count": 1,
+          "result_md5": "933def64b04116483ff4ba76b8ba2cf3",
+          "warmup_runs": 2,
+          "median_ms": 325.109,
+          "min_ms": 318.221,
+          "max_ms": 333.973
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_repeat_full_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 29956.81,
+          "execution_time_ms": 344.991,
+          "planning_time_ms": 0.943,
+          "node_types": [
+            "Aggregate",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [
+            "dim_customer",
+            "fact_orders"
+          ],
+          "shared_hit_blocks": 4016,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 1942,
+          "jit": false
+        }
+      },
+      "repeat_one_month": {
+        "sql": "SELECT * FROM reporting.fn_repeat_purchase(%(f)s, %(t)s)",
+        "params": {
+          "f": "2018-03-01",
+          "t": "2018-03-31"
+        },
+        "measurement": {
+          "timings_ms": [
+            26.851,
+            26.501,
+            26.511,
+            26.747,
+            26.134,
+            26.612,
+            27.142
+          ],
+          "row_count": 1,
+          "result_md5": "4ee0b30b14c4d85852b3793af56608bf",
+          "warmup_runs": 2,
+          "median_ms": 26.612,
+          "min_ms": 26.134,
+          "max_ms": 27.142
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_repeat_one_month_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 6308.09,
+          "execution_time_ms": 31.8,
+          "planning_time_ms": 0.431,
+          "node_types": [
+            "Aggregate",
+            "Bitmap Heap Scan",
+            "Bitmap Index Scan",
+            "Hash",
+            "Hash Join",
+            "Seq Scan",
+            "Sort"
+          ],
+          "indexes_used": [
+            "fact_orders_purchase_date_idx"
+          ],
+          "seq_scans": [
+            "dim_customer"
+          ],
+          "shared_hit_blocks": 3883,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 0,
+          "jit": false
+        }
+      },
+      "rfm_segments": {
+        "sql": "SELECT * FROM reporting.fn_rfm_segments(%(t)s::date + 1)",
+        "params": {
+          "f": "2016-09-15",
+          "t": "2018-08-29"
+        },
+        "measurement": {
+          "timings_ms": [
+            1073.611,
+            1022.657,
+            1039.887,
+            1032.987,
+            1018.554,
+            1005.344,
+            1017.941
+          ],
+          "row_count": 8,
+          "result_md5": "fce285a0868a95e414d88ac3a9838b9d",
+          "warmup_runs": 2,
+          "median_ms": 1022.657,
+          "min_ms": 1005.344,
+          "max_ms": 1073.611
+        },
+        "plan_analyzed": true,
+        "plan_file": "D1_rfm_segments_model_indexes.json",
+        "plan": {
+          "total_cost_estimate": 36.89,
+          "execution_time_ms": 1006.796,
+          "planning_time_ms": 0.147,
+          "node_types": [
+            "Aggregate",
+            "Function Scan",
+            "Sort"
+          ],
+          "indexes_used": [],
+          "seq_scans": [],
+          "shared_hit_blocks": 4016,
+          "shared_read_blocks": 0,
+          "temp_written_blocks": 7292,
+          "jit": false
+        }
+      }
+    }
+  },
+  "model_indexes_build_ms_single_run": 757.268,
+  "comparison": {
+    "overview_full": {
+      "median_no_extra_ms": 574.107,
+      "median_model_ms": 569.682,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "overview_one_month": {
+      "median_no_extra_ms": 123.389,
+      "median_model_ms": 69.163,
+      "result_equal": true,
+      "model_indexes_used": [
+        "fact_sales_purchase_date_idx"
+      ]
+    },
+    "overview_states_SP_RJ_full": {
+      "median_no_extra_ms": 362.234,
+      "median_model_ms": 347.9,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "overview_category_full": {
+      "median_no_extra_ms": 171.489,
+      "median_model_ms": 174.463,
+      "result_equal": true,
+      "model_indexes_used": [
+        "fact_orders_pkey"
+      ]
+    },
+    "monthly_full": {
+      "median_no_extra_ms": 598.103,
+      "median_model_ms": 581.09,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "monthly_state_RJ": {
+      "median_no_extra_ms": 176.281,
+      "median_model_ms": 209.238,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "category_full": {
+      "median_no_extra_ms": 457.132,
+      "median_model_ms": 463.918,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "category_one_month": {
+      "median_no_extra_ms": 127.539,
+      "median_model_ms": 71.31,
+      "result_equal": true,
+      "model_indexes_used": [
+        "fact_sales_purchase_date_idx"
+      ]
+    },
+    "delivery_region_full": {
+      "median_no_extra_ms": 190.332,
+      "median_model_ms": 189.527,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "delivery_region_one_month": {
+      "median_no_extra_ms": 76.214,
+      "median_model_ms": 24.453,
+      "result_equal": true,
+      "model_indexes_used": [
+        "fact_orders_purchase_date_idx"
+      ]
+    },
+    "delivery_monthly_full": {
+      "median_no_extra_ms": 177.446,
+      "median_model_ms": 181.294,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "repeat_full": {
+      "median_no_extra_ms": 327.108,
+      "median_model_ms": 325.109,
+      "result_equal": true,
+      "model_indexes_used": []
+    },
+    "repeat_one_month": {
+      "median_no_extra_ms": 79.544,
+      "median_model_ms": 26.612,
+      "result_equal": true,
+      "model_indexes_used": [
+        "fact_orders_purchase_date_idx"
+      ]
+    },
+    "rfm_segments": {
+      "median_no_extra_ms": 1064.389,
+      "median_model_ms": 1022.657,
+      "result_equal": true,
+      "model_indexes_used": []
+    }
+  },
+  "model_indexes_used_by_any_dashboard_query": [
+    "fact_orders_purchase_date_idx",
+    "fact_sales_purchase_date_idx"
+  ],
+  "model_indexes_unused_by_dashboard": [
+    "dim_customer_unique_id_idx",
+    "fact_orders_status_idx",
+    "fact_sales_product_idx",
+    "fact_sales_seller_idx"
+  ]
+}

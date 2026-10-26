@@ -1,0 +1,275 @@
+{
+  "id": "E3_open_orders",
+  "title": "Teslim edilmemiş son 50 sipariş",
+  "technique": "durum indeksi / tam indeks / partial index",
+  "params": {},
+  "states": [
+    {
+      "state": "baseline",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          15.583,
+          14.79,
+          15.281,
+          14.994,
+          15.771,
+          19.162,
+          14.902
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 15.281,
+        "min_ms": 14.79,
+        "max_ms": 19.162
+      },
+      "plan_file": "E3_open_orders_baseline.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 3910.46,
+        "execution_time_ms": 13.945,
+        "planning_time_ms": 0.104,
+        "node_types": [
+          "Limit",
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "fact_orders"
+        ],
+        "shared_hit_blocks": 2566,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": null,
+        "rows_inserted": 99441,
+        "timings_ms": [
+          81.112,
+          82.208,
+          91.117,
+          91.397,
+          84.611
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 84.611,
+        "min_ms": 81.112,
+        "max_ms": 91.397
+      }
+    },
+    {
+      "state": "btree_status",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          14.913,
+          14.833,
+          15.189,
+          15.991,
+          18.236,
+          15.066,
+          14.761
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 15.066,
+        "min_ms": 14.761,
+        "max_ms": 18.236
+      },
+      "plan_file": "E3_open_orders_btree_status.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 3910.46,
+        "execution_time_ms": 13.912,
+        "planning_time_ms": 0.083,
+        "node_types": [
+          "Limit",
+          "Seq Scan",
+          "Sort"
+        ],
+        "indexes_used": [],
+        "seq_scans": [
+          "fact_orders"
+        ],
+        "shared_hit_blocks": 2566,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_orders(order_status) B-tree (ana modeldeki fact_orders_status_idx ile aynı tanım)",
+      "apply_sql": [
+        "CREATE INDEX perf_orders_status_idx ON dw.fact_orders (order_status)"
+      ],
+      "apply_ms_single_run": 86.457,
+      "index_sizes_bytes": {
+        "dw.perf_orders_status_idx": 712704
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 1.01,
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": "CREATE INDEX ON {t} (order_status)",
+        "rows_inserted": 99441,
+        "timings_ms": [
+          192.049,
+          198.653,
+          207.612,
+          200.761,
+          206.483
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 200.761,
+        "min_ms": 192.049,
+        "max_ms": 207.612
+      }
+    },
+    {
+      "state": "full_purchase_desc",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          1.925,
+          2.088,
+          1.961,
+          1.788,
+          1.365,
+          1.851,
+          1.755
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 1.851,
+        "min_ms": 1.365,
+        "max_ms": 2.088
+      },
+      "plan_file": "E3_open_orders_full_purchase_desc.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 251.04,
+        "execution_time_ms": 1.075,
+        "planning_time_ms": 0.108,
+        "node_types": [
+          "Index Scan",
+          "Limit"
+        ],
+        "indexes_used": [
+          "perf_orders_purchase_full_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 1158,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_orders(purchase_ts DESC, order_id) tam indeks",
+      "apply_sql": [
+        "CREATE INDEX perf_orders_purchase_full_idx ON dw.fact_orders (purchase_ts DESC, order_id)"
+      ],
+      "apply_ms_single_run": 104.97,
+      "index_sizes_bytes": {
+        "dw.perf_orders_purchase_full_idx": 6725632
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 8.26,
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": "CREATE INDEX ON {t} (purchase_ts DESC, order_id)",
+        "rows_inserted": 99441,
+        "timings_ms": [
+          258.176,
+          266.542,
+          274.017,
+          292.422,
+          291.173
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 274.017,
+        "min_ms": 258.176,
+        "max_ms": 292.422
+      }
+    },
+    {
+      "state": "partial_open_orders",
+      "sql": "SELECT order_id, order_status, purchase_ts, estimated_delivery_date FROM dw.fact_orders WHERE order_status <> 'delivered' ORDER BY purchase_ts DESC, order_id LIMIT 50",
+      "measurement": {
+        "timings_ms": [
+          0.541,
+          0.592,
+          0.553,
+          0.43,
+          0.436,
+          0.431,
+          0.524
+        ],
+        "row_count": 50,
+        "result_md5": "08d31a9c3ac9561c36a80f9b1e1511b0",
+        "warmup_runs": 2,
+        "median_ms": 0.524,
+        "min_ms": 0.43,
+        "max_ms": 0.592
+      },
+      "plan_file": "E3_open_orders_partial_open_orders.json",
+      "plan_analyzed": true,
+      "plan": {
+        "total_cost_estimate": 128.3,
+        "execution_time_ms": 0.059,
+        "planning_time_ms": 0.061,
+        "node_types": [
+          "Index Scan",
+          "Limit"
+        ],
+        "indexes_used": [
+          "perf_orders_open_partial_idx"
+        ],
+        "seq_scans": [],
+        "shared_hit_blocks": 52,
+        "shared_read_blocks": 0,
+        "temp_written_blocks": 0,
+        "jit": false
+      },
+      "description": "fact_orders(purchase_ts DESC, order_id) WHERE order_status <> 'delivered' partial indeks",
+      "apply_sql": [
+        "CREATE INDEX perf_orders_open_partial_idx ON dw.fact_orders (purchase_ts DESC, order_id) WHERE order_status <> 'delivered'"
+      ],
+      "apply_ms_single_run": 36.318,
+      "index_sizes_bytes": {
+        "dw.perf_orders_open_partial_idx": 221184
+      },
+      "result_reference_state": "baseline",
+      "result_equal_to_reference": true,
+      "median_speedup_vs_baseline": 29.16,
+      "write_cost": {
+        "table": "dw.fact_orders",
+        "index_ddl": "CREATE INDEX ON {t} (purchase_ts DESC, order_id) WHERE order_status <> 'delivered'",
+        "rows_inserted": 99441,
+        "timings_ms": [
+          91.904,
+          95.942,
+          126.502,
+          115.673,
+          100.541
+        ],
+        "row_count": 0,
+        "result_md5": "",
+        "warmup_runs": 1,
+        "median_ms": 100.541,
+        "min_ms": 91.904,
+        "max_ms": 126.502
+      }
+    }
+  ]
+}

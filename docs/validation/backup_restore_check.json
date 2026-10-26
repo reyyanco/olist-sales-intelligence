@@ -1,0 +1,415 @@
+{
+    "checked_at_utc":  "2026-10-25T14:43:33Z",
+    "source_database":  "olist",
+    "restored_database":  "olist_restore_test",
+    "backup":  {
+                   "file":  "backups/olist_20261025_174001.dump",
+                   "bytes":  74432354,
+                   "sha256":  "ea282b3383aebcd3662e374ea271d1049745c329076d6f7fe0d7d137aa2bab53"
+               },
+    "scope":  "business = staging+dw+reporting (row counts, content MD5, financial totals, MV state), objects, reader-role privileges; logs = meta schema, evaluated separately",
+    "business_and_objects_identical":  true,
+    "logs_identical":  true,
+    "etl_verify_on_restored":  {
+                                   "exit_code":  0,
+                                   "lines":  [
+                                                 "passed: 010_row_counts_match_staging.sql",
+                                                 "passed: 020_order_totals_match_detail.sql",
+                                                 "passed: 030_reporting_totals_not_duplicated.sql",
+                                                 "passed: 040_dim_date_covers_orders.sql",
+                                                 "passed: 050_natural_keys_unique.sql",
+                                                 "passed: 060_no_orphans_in_dw.sql",
+                                                 "passed: 070_order_and_item_counts.sql",
+                                                 "passed: 080_reporting_analyses_consistent.sql",
+                                                 "passed: 090_dashboard_functions_consistent.sql"
+                                             ]
+                               },
+    "differences":  {
+                        "objects":  {
+
+                                    },
+                        "business_row_counts":  {
+
+                                                },
+                        "business_content_md5":  {
+
+                                                 },
+                        "business_financials":  {
+
+                                                },
+                        "materialized_views_populated":  {
+
+                                                         },
+                        "logs":  {
+
+                                 },
+                        "privileges":  {
+
+                                       }
+                    },
+    "database_size_bytes":  {
+                                "source":  388693015,
+                                "restored":  321813527
+                            },
+    "tables_compared":  26,
+    "source_snapshot":  {
+                            "logs":  {
+                                         "last_run":  {
+                                                          "run_id":  "1feee717-ec9e-46d8-9995-8b4e0691af1f",
+                                                          "status":  "succeeded",
+                                                          "started_at":  "2026-10-24T17:45:22.733906+00:00"
+                                                      },
+                                         "row_counts":  {
+                                                            "meta.etl_runs":  7,
+                                                            "meta.etl_run_files":  63,
+                                                            "meta.etl_run_checks":  89,
+                                                            "meta.etl_rejected_rows":  0,
+                                                            "meta.schema_migrations":  20,
+                                                            "meta.report_refresh_runs":  5
+                                                        },
+                                         "content_md5":  {
+                                                             "meta.etl_runs":  "ee3ab1d730f06b6ee4fd12aa271e97b6",
+                                                             "meta.etl_run_files":  "f77f39d1b12fe8bba5ffd8d393bbbdf3",
+                                                             "meta.etl_run_checks":  "638f41937a665e948b94f52665e7f330",
+                                                             "meta.etl_rejected_rows":  "empty",
+                                                             "meta.schema_migrations":  "6af5c12069e5dcbbf0e3967a89586234",
+                                                             "meta.report_refresh_runs":  "8ea4b6fe759e6e03b411646c54475e1b"
+                                                         },
+                                         "current_run_id":  "1feee717-ec9e-46d8-9995-8b4e0691af1f",
+                                         "schema_migrations":  [
+                                                                   "010_create_schemas.sql",
+                                                                   "020_staging_tables.sql",
+                                                                   "030_dw_dimensions.sql",
+                                                                   "040_dw_facts.sql",
+                                                                   "050_reporting_views.sql",
+                                                                   "060_etl_run_log.sql",
+                                                                   "070_staging_row_ids.sql",
+                                                                   "080_product_category_policy.sql",
+                                                                   "090_reporting_payment_differences.sql",
+                                                                   "100_report_monthly_sales_growth.sql",
+                                                                   "110_report_customer_rfm.sql",
+                                                                   "120_report_category_sales.sql",
+                                                                   "130_report_delivery_performance.sql",
+                                                                   "140_report_repeat_purchase.sql",
+                                                                   "150_report_routines.sql",
+                                                                   "160_report_dashboard_functions.sql",
+                                                                   "170_report_repeat_purchase_single_pass.sql",
+                                                                   "180_dashboard_reader_role.sql",
+                                                                   "190_report_monthly_sales_date_scope_fix.sql",
+                                                                   "200_report_monthly_observation_window.sql"
+                                                               ],
+                                         "etl_runs_by_status":  {
+                                                                    "failed":  1,
+                                                                    "succeeded":  6
+                                                                },
+                                         "last_report_refresh_id":  5
+                                     },
+                            "objects":  {
+                                            "dw":  {
+                                                       "views":  0,
+                                                       "tables":  7,
+                                                       "indexes":  16,
+                                                       "functions":  0,
+                                                       "sequences":  0,
+                                                       "procedures":  0,
+                                                       "constraints":  67,
+                                                       "materialized_views":  0
+                                                   },
+                                            "meta":  {
+                                                         "views":  0,
+                                                         "tables":  6,
+                                                         "indexes":  8,
+                                                         "functions":  2,
+                                                         "sequences":  1,
+                                                         "procedures":  0,
+                                                         "constraints":  27,
+                                                         "materialized_views":  0
+                                                     },
+                                            "staging":  {
+                                                            "views":  0,
+                                                            "tables":  9,
+                                                            "indexes":  0,
+                                                            "functions":  0,
+                                                            "sequences":  9,
+                                                            "procedures":  0,
+                                                            "constraints":  0,
+                                                            "materialized_views":  0
+                                                        },
+                                            "reporting":  {
+                                                              "views":  17,
+                                                              "tables":  2,
+                                                              "indexes":  4,
+                                                              "functions":  9,
+                                                              "sequences":  0,
+                                                              "procedures":  2,
+                                                              "constraints":  12,
+                                                              "materialized_views":  2
+                                                          }
+                                        },
+                            "business":  {
+                                             "financials":  {
+                                                                "v_sales_kpis":  {
+                                                                                     "item_count":  110197,
+                                                                                     "late_orders":  6534,
+                                                                                     "order_count":  96478,
+                                                                                     "product_sales":  13221498.11,
+                                                                                     "customer_count":  93358,
+                                                                                     "freight_amount":  2198275.64,
+                                                                                     "payment_amount":  15422461.77,
+                                                                                     "avg_basket_value":  137.04,
+                                                                                     "avg_delivery_days":  12.56,
+                                                                                     "late_delivery_rate":  0.0677,
+                                                                                     "repeat_purchase_rate":  0.0300,
+                                                                                     "repeat_customer_count":  2801,
+                                                                                     "delivery_measured_orders":  96470,
+                                                                                     "delivery_unmeasured_orders":  8
+                                                                                 },
+                                                                "fact_sales_price_all_statuses":  13591643.70,
+                                                                "monthly_summary_product_sales":  13221498.11,
+                                                                "fact_sales_freight_all_statuses":  2251909.54,
+                                                                "mv_category_sales_product_sales":  13221498.11,
+                                                                "fact_payments_value_all_statuses":  16008872.12
+                                                            },
+                                             "row_counts":  {
+                                                                "dw.dim_date":  800,
+                                                                "dw.dim_seller":  3095,
+                                                                "dw.fact_sales":  112650,
+                                                                "dw.dim_product":  32951,
+                                                                "dw.fact_orders":  99441,
+                                                                "staging.orders":  99441,
+                                                                "dw.dim_customer":  99441,
+                                                                "staging.sellers":  3095,
+                                                                "dw.fact_payments":  103886,
+                                                                "staging.products":  32951,
+                                                                "staging.customers":  99441,
+                                                                "staging.geolocation":  1000163,
+                                                                "staging.order_items":  112650,
+                                                                "staging.order_reviews":  99224,
+                                                                "reporting.state_region":  27,
+                                                                "staging.order_payments":  103886,
+                                                                "reporting.monthly_summary":  24,
+                                                                "reporting.mv_monthly_sales":  23,
+                                                                "reporting.mv_category_sales":  74,
+                                                                "staging.category_translation":  71
+                                                            },
+                                             "content_md5":  {
+                                                                 "dw.dim_date":  "524304aae1c892da0b83c70c2ddc990c",
+                                                                 "dw.dim_seller":  "d2d4b46035c0df1013608852b79e290a",
+                                                                 "dw.fact_sales":  "7006ce72bd7625c424e721ce694df8d2",
+                                                                 "dw.dim_product":  "95ff135b7d698c7e105557763ec21263",
+                                                                 "dw.fact_orders":  "5e09abe83592a275457058ec02a9640e",
+                                                                 "staging.orders":  "0a2fb7e064a1b148dfa9ca8b8fa679cd",
+                                                                 "dw.dim_customer":  "aa3406f6332386bb990c13df590e305f",
+                                                                 "staging.sellers":  "07827613092eee9eb0d587d52c219800",
+                                                                 "dw.fact_payments":  "018015230e5b3b5ec6ce25b899d05929",
+                                                                 "staging.products":  "e1cdef97325bc1b6256a84910840be12",
+                                                                 "staging.customers":  "4fa73e8e3fa2cd789119799068a70626",
+                                                                 "staging.geolocation":  "d10ea0ed673620908c834e6c9505841f",
+                                                                 "staging.order_items":  "5a89064d8c0008897bd41b7cc97bbda1",
+                                                                 "staging.order_reviews":  "0ca599044ad375e736727103b23ec371",
+                                                                 "reporting.state_region":  "074e424ae7f222419750b30345215f51",
+                                                                 "staging.order_payments":  "6a0df624c6a40e8fe5880a459f67a058",
+                                                                 "reporting.monthly_summary":  "2c97f3b977e289cadbe89cd06705cfc7",
+                                                                 "reporting.mv_monthly_sales":  "8ce7e8f1e0144f9357f2de726e392c9e",
+                                                                 "reporting.mv_category_sales":  "0c415fa100417411c83dd7cf67538390",
+                                                                 "staging.category_translation":  "c08380f853ec13b462feaa1efa24f283"
+                                                             },
+                                             "materialized_views_populated":  {
+                                                                                  "reporting.mv_monthly_sales":  true,
+                                                                                  "reporting.mv_category_sales":  true
+                                                                              }
+                                         },
+                            "database":  "olist",
+                            "privileges":  {
+                                               "reader_usage_dw":  false,
+                                               "reader_role_exists":  true,
+                                               "reader_usage_reporting":  true,
+                                               "reader_select_v_sales_kpis":  true,
+                                               "reader_connect_grant_explicit":  true,
+                                               "reader_execute_fn_overview_kpis":  true,
+                                               "reader_execute_sp_refresh_reports":  false
+                                           },
+                            "server_version":  "16.15 (Debian 16.15-1.pgdg12+2)",
+                            "database_size_bytes":  388693015
+                        },
+    "restored_snapshot":  {
+                              "logs":  {
+                                           "last_run":  {
+                                                            "run_id":  "1feee717-ec9e-46d8-9995-8b4e0691af1f",
+                                                            "status":  "succeeded",
+                                                            "started_at":  "2026-10-24T17:45:22.733906+00:00"
+                                                        },
+                                           "row_counts":  {
+                                                              "meta.etl_runs":  7,
+                                                              "meta.etl_run_files":  63,
+                                                              "meta.etl_run_checks":  89,
+                                                              "meta.etl_rejected_rows":  0,
+                                                              "meta.schema_migrations":  20,
+                                                              "meta.report_refresh_runs":  5
+                                                          },
+                                           "content_md5":  {
+                                                               "meta.etl_runs":  "ee3ab1d730f06b6ee4fd12aa271e97b6",
+                                                               "meta.etl_run_files":  "f77f39d1b12fe8bba5ffd8d393bbbdf3",
+                                                               "meta.etl_run_checks":  "638f41937a665e948b94f52665e7f330",
+                                                               "meta.etl_rejected_rows":  "empty",
+                                                               "meta.schema_migrations":  "6af5c12069e5dcbbf0e3967a89586234",
+                                                               "meta.report_refresh_runs":  "8ea4b6fe759e6e03b411646c54475e1b"
+                                                           },
+                                           "current_run_id":  "1feee717-ec9e-46d8-9995-8b4e0691af1f",
+                                           "schema_migrations":  [
+                                                                     "010_create_schemas.sql",
+                                                                     "020_staging_tables.sql",
+                                                                     "030_dw_dimensions.sql",
+                                                                     "040_dw_facts.sql",
+                                                                     "050_reporting_views.sql",
+                                                                     "060_etl_run_log.sql",
+                                                                     "070_staging_row_ids.sql",
+                                                                     "080_product_category_policy.sql",
+                                                                     "090_reporting_payment_differences.sql",
+                                                                     "100_report_monthly_sales_growth.sql",
+                                                                     "110_report_customer_rfm.sql",
+                                                                     "120_report_category_sales.sql",
+                                                                     "130_report_delivery_performance.sql",
+                                                                     "140_report_repeat_purchase.sql",
+                                                                     "150_report_routines.sql",
+                                                                     "160_report_dashboard_functions.sql",
+                                                                     "170_report_repeat_purchase_single_pass.sql",
+                                                                     "180_dashboard_reader_role.sql",
+                                                                     "190_report_monthly_sales_date_scope_fix.sql",
+                                                                     "200_report_monthly_observation_window.sql"
+                                                                 ],
+                                           "etl_runs_by_status":  {
+                                                                      "failed":  1,
+                                                                      "succeeded":  6
+                                                                  },
+                                           "last_report_refresh_id":  5
+                                       },
+                              "objects":  {
+                                              "dw":  {
+                                                         "views":  0,
+                                                         "tables":  7,
+                                                         "indexes":  16,
+                                                         "functions":  0,
+                                                         "sequences":  0,
+                                                         "procedures":  0,
+                                                         "constraints":  67,
+                                                         "materialized_views":  0
+                                                     },
+                                              "meta":  {
+                                                           "views":  0,
+                                                           "tables":  6,
+                                                           "indexes":  8,
+                                                           "functions":  2,
+                                                           "sequences":  1,
+                                                           "procedures":  0,
+                                                           "constraints":  27,
+                                                           "materialized_views":  0
+                                                       },
+                                              "staging":  {
+                                                              "views":  0,
+                                                              "tables":  9,
+                                                              "indexes":  0,
+                                                              "functions":  0,
+                                                              "sequences":  9,
+                                                              "procedures":  0,
+                                                              "constraints":  0,
+                                                              "materialized_views":  0
+                                                          },
+                                              "reporting":  {
+                                                                "views":  17,
+                                                                "tables":  2,
+                                                                "indexes":  4,
+                                                                "functions":  9,
+                                                                "sequences":  0,
+                                                                "procedures":  2,
+                                                                "constraints":  12,
+                                                                "materialized_views":  2
+                                                            }
+                                          },
+                              "business":  {
+                                               "financials":  {
+                                                                  "v_sales_kpis":  {
+                                                                                       "item_count":  110197,
+                                                                                       "late_orders":  6534,
+                                                                                       "order_count":  96478,
+                                                                                       "product_sales":  13221498.11,
+                                                                                       "customer_count":  93358,
+                                                                                       "freight_amount":  2198275.64,
+                                                                                       "payment_amount":  15422461.77,
+                                                                                       "avg_basket_value":  137.04,
+                                                                                       "avg_delivery_days":  12.56,
+                                                                                       "late_delivery_rate":  0.0677,
+                                                                                       "repeat_purchase_rate":  0.0300,
+                                                                                       "repeat_customer_count":  2801,
+                                                                                       "delivery_measured_orders":  96470,
+                                                                                       "delivery_unmeasured_orders":  8
+                                                                                   },
+                                                                  "fact_sales_price_all_statuses":  13591643.70,
+                                                                  "monthly_summary_product_sales":  13221498.11,
+                                                                  "fact_sales_freight_all_statuses":  2251909.54,
+                                                                  "mv_category_sales_product_sales":  13221498.11,
+                                                                  "fact_payments_value_all_statuses":  16008872.12
+                                                              },
+                                               "row_counts":  {
+                                                                  "dw.dim_date":  800,
+                                                                  "dw.dim_seller":  3095,
+                                                                  "dw.fact_sales":  112650,
+                                                                  "dw.dim_product":  32951,
+                                                                  "dw.fact_orders":  99441,
+                                                                  "staging.orders":  99441,
+                                                                  "dw.dim_customer":  99441,
+                                                                  "staging.sellers":  3095,
+                                                                  "dw.fact_payments":  103886,
+                                                                  "staging.products":  32951,
+                                                                  "staging.customers":  99441,
+                                                                  "staging.geolocation":  1000163,
+                                                                  "staging.order_items":  112650,
+                                                                  "staging.order_reviews":  99224,
+                                                                  "reporting.state_region":  27,
+                                                                  "staging.order_payments":  103886,
+                                                                  "reporting.monthly_summary":  24,
+                                                                  "reporting.mv_monthly_sales":  23,
+                                                                  "reporting.mv_category_sales":  74,
+                                                                  "staging.category_translation":  71
+                                                              },
+                                               "content_md5":  {
+                                                                   "dw.dim_date":  "524304aae1c892da0b83c70c2ddc990c",
+                                                                   "dw.dim_seller":  "d2d4b46035c0df1013608852b79e290a",
+                                                                   "dw.fact_sales":  "7006ce72bd7625c424e721ce694df8d2",
+                                                                   "dw.dim_product":  "95ff135b7d698c7e105557763ec21263",
+                                                                   "dw.fact_orders":  "5e09abe83592a275457058ec02a9640e",
+                                                                   "staging.orders":  "0a2fb7e064a1b148dfa9ca8b8fa679cd",
+                                                                   "dw.dim_customer":  "aa3406f6332386bb990c13df590e305f",
+                                                                   "staging.sellers":  "07827613092eee9eb0d587d52c219800",
+                                                                   "dw.fact_payments":  "018015230e5b3b5ec6ce25b899d05929",
+                                                                   "staging.products":  "e1cdef97325bc1b6256a84910840be12",
+                                                                   "staging.customers":  "4fa73e8e3fa2cd789119799068a70626",
+                                                                   "staging.geolocation":  "d10ea0ed673620908c834e6c9505841f",
+                                                                   "staging.order_items":  "5a89064d8c0008897bd41b7cc97bbda1",
+                                                                   "staging.order_reviews":  "0ca599044ad375e736727103b23ec371",
+                                                                   "reporting.state_region":  "074e424ae7f222419750b30345215f51",
+                                                                   "staging.order_payments":  "6a0df624c6a40e8fe5880a459f67a058",
+                                                                   "reporting.monthly_summary":  "2c97f3b977e289cadbe89cd06705cfc7",
+                                                                   "reporting.mv_monthly_sales":  "8ce7e8f1e0144f9357f2de726e392c9e",
+                                                                   "reporting.mv_category_sales":  "0c415fa100417411c83dd7cf67538390",
+                                                                   "staging.category_translation":  "c08380f853ec13b462feaa1efa24f283"
+                                                               },
+                                               "materialized_views_populated":  {
+                                                                                    "reporting.mv_monthly_sales":  true,
+                                                                                    "reporting.mv_category_sales":  true
+                                                                                }
+                                           },
+                              "database":  "olist_restore_test",
+                              "privileges":  {
+                                                 "reader_usage_dw":  false,
+                                                 "reader_role_exists":  true,
+                                                 "reader_usage_reporting":  true,
+                                                 "reader_select_v_sales_kpis":  true,
+                                                 "reader_connect_grant_explicit":  true,
+                                                 "reader_execute_fn_overview_kpis":  true,
+                                                 "reader_execute_sp_refresh_reports":  false
+                                             },
+                              "server_version":  "16.15 (Debian 16.15-1.pgdg12+2)",
+                              "database_size_bytes":  321813527
+                          }
+}

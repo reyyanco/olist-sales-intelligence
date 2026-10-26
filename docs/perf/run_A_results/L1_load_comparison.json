@@ -1,0 +1,97 @@
+{
+  "source_file": "olist_order_items_dataset.csv",
+  "source_bytes": 15438671,
+  "target_table": "perf.load_target (order_id text, order_item_id text, product_id text, seller_id text, shipping_limit_date text, price text, freight_value text), indeks yok",
+  "transaction": "her çalışma: BEGIN; TRUNCATE; yükleme; COMMIT",
+  "pandas_read_csv": {
+    "kwargs": "dtype=str, keep_default_na=False, na_filter=False",
+    "timings_ms": [
+      317.649,
+      297.0,
+      288.543,
+      287.625,
+      302.242
+    ],
+    "row_count": 0,
+    "result_md5": "",
+    "warmup_runs": 1,
+    "median_ms": 297.0,
+    "min_ms": 287.625,
+    "max_ms": 317.649
+  },
+  "versions": {
+    "pandas": "3.1.0",
+    "sqlalchemy": "2.1.6"
+  },
+  "to_sql_common_kwargs": "schema='perf', if_exists='append', index=False",
+  "methods": [
+    {
+      "name": "copy_from_stdin",
+      "kind": "copy",
+      "timings_ms": [
+        1025.817,
+        1100.947,
+        1392.231,
+        1230.757,
+        1279.219
+      ],
+      "row_count": 0,
+      "result_md5": "",
+      "warmup_runs": 1,
+      "median_ms": 1230.757,
+      "min_ms": 1025.817,
+      "max_ms": 1392.231,
+      "verify": {
+        "rows": 112650,
+        "content_md5": "9420b900d6e101caab4eab898ccb1e08"
+      }
+    },
+    {
+      "name": "to_sql_default_chunk10000",
+      "kind": "to_sql",
+      "method": null,
+      "chunksize": 10000,
+      "timings_ms": [
+        3678.31,
+        3870.935,
+        3727.607,
+        3687.831,
+        3741.961
+      ],
+      "row_count": 0,
+      "result_md5": "",
+      "warmup_runs": 1,
+      "median_ms": 3727.607,
+      "min_ms": 3678.31,
+      "max_ms": 3870.935,
+      "verify": {
+        "rows": 112650,
+        "content_md5": "9420b900d6e101caab4eab898ccb1e08"
+      }
+    },
+    {
+      "name": "to_sql_multi_chunk1000",
+      "kind": "to_sql",
+      "method": "multi",
+      "chunksize": 1000,
+      "timings_ms": [
+        14649.744,
+        14733.407,
+        14807.695,
+        14764.324,
+        15286.157
+      ],
+      "row_count": 0,
+      "result_md5": "",
+      "warmup_runs": 1,
+      "median_ms": 14764.324,
+      "min_ms": 14649.744,
+      "max_ms": 15286.157,
+      "verify": {
+        "rows": 112650,
+        "content_md5": "9420b900d6e101caab4eab898ccb1e08"
+      }
+    }
+  ],
+  "all_results_identical": true
+}
